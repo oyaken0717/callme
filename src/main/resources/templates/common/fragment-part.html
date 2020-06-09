@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+<!--■ ヘッダー部分(ログアウト) -->
+	<div th:fragment="frag_header_logout">
+		<div class="header">
+        	<div class="header-logo">callme</div>
+		</div>  
+	</div>
+
+<!--■ ヘッダー部分(ログイン) -->
+	<div th:fragment="frag_header_logoin">
+		<div class="header">
+        	<div class="header-logo">callme</div>
+        	
+			<div class="header-list">
+				<div id="headerName" class="header-list-header">ユーザー名</div>
+				<ul id="headerItem">
+					<li>グループ</li>
+					<li>プロフィール</li>
+					<li>ログアウト</li>
+				</ul>
+			</div>
+			
+        </div> 	
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+html, body,
+ul, ol, li,
+h1, h2, h3, h4, h5, h6, p,
+form, input, div {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.header{
+	background: #D9E3FF;
+	height: 50px;	
+}
+
+.header-logo {
+    float: left;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.header-list {
+    float: right;
+    line-height: 50px;
+}
+
+.header-list-header{
+	padding: 0px 20px;
+}
