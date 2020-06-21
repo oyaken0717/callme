@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.form {
+	/* https://ics.media/entry/17522/ */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	
+}
+
+.form-title{
+	text-align: center;
+	font-size: 22px;
+	margin-bottom: 20px;
+}
+
+input, textarea {
+    width: 250px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dee7ec;
+}
+
+.button{
+	text-align: center;
+}
+
+.login-button{
+	background: #D9E3FF;
+	border: none;
+	padding: 5px 10px;
+	margin-right: 20px;
+}
+
+.register-button{
+	background: #D9E3FF;
+	border: none;
+	padding-top: 7px;
+    padding-bottom: 9px;
+	text-decoration: none;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: black;
+	font-size: 15px;
+	margin-left: 20px;
+}
+
+.back-button{
+	background: #D9E3FF;
+	border: none;
+	padding: 5px 10px;
+	margin-right: 20px;
+}
+
+
+.push-button:hover {
+   background: rgba(229, 229, 229);
+}

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.group-name{
+	padding-bottom: 20px;
+}
+
+.invite-name{
+	padding-bottom: 10px;
+}
+
+.register-button{
+	margin-bottom: 10px;
+}
+
+.register-invite-button{
+	margin-bottom: 20px;
+	background: #D9E3FF;
+	border: none;
+	padding-top: 7px;
+    padding-bottom: 9px;
+	text-decoration: none;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: black;
+	font-size: 15px;
+}
+
+.invite-list{
+	margin-bottom: 20px;
+}

@@ -4,10 +4,14 @@
 	<meta charset="UTF-8">
 	<title>callme</title>
 	<link rel= "stylesheet" th:href ="@{/css/header.css}">
+	<link rel= "stylesheet" th:href ="@{/css/common.css}">
 </head>
 <body>
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!--■ ヘッダー部分 -->
 	<span th:include="/common/fragment-part::frag_header_logout"></span>
+	
+	<script th:src="@{/js/common.js}"></script>
 </body>
 </html>
 
