@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/group-register")
-public class GroupRegisterController {
+@RequestMapping("/group-edit")
+public class GroupEditController {
 	
 	/**
 	 * グループ登録画面へ.
 	 * 
 	 * @return グループ登録画面
 	 */
-	@RequestMapping("/to-group-register")
-	public String toGroupRegister() {
+	@RequestMapping("/to-group-edit")
+	public String toGroupEdit() {
 		
-		return "group/group_register";
+		return "group/group_edit";
 	}
 
 }
