@@ -5,36 +5,36 @@
 	<title>callme</title>
 	<link rel= "stylesheet" th:href ="@{/css/header.css}">
 	<link rel= "stylesheet" th:href ="@{/css/common.css}">
-	<link rel= "stylesheet" th:href ="@{/css/invite_register.css}">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!--■ ヘッダー部分 -->
 	<span th:include="/common/fragment-part::frag_header_login"></span>
-	
+
 <!--■ メイン部分 -->	
 	<div class="main">
 		<div class="form">
 			<div class="container">
-				<div class="form-title">グループに招待する</div>
+				<div class="form-title">編集</div>
 				<form th:action="@{/}" method="post">
 				
-					<p class="group-name">グループ名：◯◯</p>
-					<p>ユーザー検索：</p>
+					<p>名前</p>
 					<input type="text" name="name">
-					<p class="invite-name">ユーザー2</p>
-					<p class="invite-name">ユーザー3</p>						
+					<p>メールアドレス</p>
+					<input type="text" name="email">
+					<p>パスワード</p>
+					<input type="password" name="password">
+					<p>確認用パスワード</p>
+					<input type="password" name="passwordConfirmation"><br>
+						
 					<div class="button">
-						<button class="register-invite-button push-button" type="submit">招待を確定する</button>
+						<button class="login-button push-button" type="submit">更新</button>
 					</div>
-					<p class="invite-list">招待するユーザー：</p>
-					<p class="invite-name">ユーザー1</p>
 				</form>
 			</div>
 		</div>	
 	</div>
-
 
 	<script th:src="@{/js/common.js}"></script>
 	<script th:src="@{/js/header.js}"></script>

@@ -13,7 +13,24 @@
 	</div>
 
 <!--■ ヘッダー部分(ログイン) -->
-	<div th:fragment="frag_header_logoin">
+	<div th:fragment="frag_header_login">
+ 		<div class="header">
+        	<div class="header-logo">callme</div>
+        	
+			<div class="header-list">
+				<div id="headerName" class="header-list-header">ユーザー名</div>
+				<ul id="headerItem">
+					<li>グループ</li>
+					<li>プロフィール</li>
+					<li>ログアウト</li>
+				</ul>
+			</div>
+			
+        </div> 	
+ 	</div>
+
+<!--■ ヘッダー部分(ログイン)ユーザー編集画面が実装できたら消す -->
+<!-- 	<div th:fragment="frag_header_logoin">
 		<div class="header">
         	<div class="header-logo">callme</div>
         	
@@ -28,6 +45,7 @@
 			
         </div> 	
 	</div>
+ -->
 </body>
 </html>
 
