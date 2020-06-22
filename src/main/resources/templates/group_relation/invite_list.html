@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>callme</title>
+	<link rel= "stylesheet" th:href ="@{/css/header.css}">
+	<link rel= "stylesheet" th:href ="@{/css/common.css}">
+</head>
+<body>
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!--■ ヘッダー部分 -->
+	<span th:include="/common/fragment-part::frag_header_login"></span>
+
+<!--■ メイン部分 -->	
+	<div class="main">
+		<div class="form">
+			<div class="container">
+				<div class="form-title">招待されているグループ</div>
+				<form th:action="@{/}" method="post">
+				
+					<p>グループ1</p>
+					<p>グループ2</p>
+					<p>グループ3</p>										
+						
+				</form>
+			</div>
+		</div>	
+	</div>
+
+
+	<script th:src="@{/js/common.js}"></script>
+	<script th:src="@{/js/header.js}"></script>
+</body>
+</html>
+
