@@ -1,10 +1,10 @@
-package com.example.service;
+package com.example.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
-import com.example.repository.UserRepository;
+import com.example.repository.user.UserRepository;
 
 /**
  * ユーザー情報を登録するサービス.

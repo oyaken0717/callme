@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.repository.user;
 
 import javax.annotation.PostConstruct;
 
@@ -32,7 +32,7 @@ public class UserRepository {
 	@PostConstruct
 	public void init() {
 		insert = new SimpleJdbcInsert((JdbcTemplate) template.getJdbcTemplate());
-		insert = insert.withTableName("users").usingGeneratedKeyColumns("id");
+		insert = insert.withTableName("users").usingGeneratedKeyColumns("user_id");
 	}
 
 	private static final RowMapper<User> USER_ROW_MAPPER = (rs, i) -> {
