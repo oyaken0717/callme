@@ -23,6 +23,7 @@ public class UserRegisterController {
 	private UserRegisterService userRegisterService;
 	
 	/**
+	 * 
 	 * ユーザー登録画面へ.
 	 * 
 	 * @return ユーザー登録画面
@@ -44,7 +45,7 @@ public class UserRegisterController {
 		BeanUtils.copyProperties(form, user);
 		userRegisterService.insert(user);
 	
-		return "user/user_register";
+		return "user/login";
 
 	}
 
