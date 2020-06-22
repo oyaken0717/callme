@@ -1,11 +1,14 @@
 package com.example.repository.user;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -46,6 +49,12 @@ public class UserRepository {
 		return user;
 	};
 
+	/**
+	 * ユーザー情報を登録、更新する.
+	 * 
+	 * @param user ユーザー情報が入ったドメイン
+	 * @return idの入ったユーザー
+	 */
 	public User save(User user) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		if (user.getUserId() == null) {
@@ -64,5 +73,30 @@ public class UserRepository {
 //                template.update(sql.toString(), param);
 		}
 		return user;
+	}
+	
+	/**
+	 * ユーザー情報をemailから検索するメソッド.
+	 * 
+	 * @param email メールアドレス
+	 * @return emailでマッチしたuser
+	 */
+	public User findByEmail(String email) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append("FROM ");
+		sql.append(" users u ");
+		sql.append("WHERE ");
+		sql.append(" u.email = :email ");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+		List<User> userList = template.query(sql.toString(), param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
+		
 	}
 }
