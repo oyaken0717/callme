@@ -1,4 +1,4 @@
-package com.example.form.user;
+package com.example.form;
 
 import javax.validation.constraints.NotNull;
 

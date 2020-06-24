@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.User;
-import com.example.form.user.UserForm;
+import com.example.form.UserForm;
 import com.example.service.user.UserRegisterService;
 
 /**

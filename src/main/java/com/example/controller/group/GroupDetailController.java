@@ -19,7 +19,7 @@ public class GroupDetailController {
 	 * @return グループ詳細画面
 	 */
 	@RequestMapping("/to-group-detail")
-	public String toGroupDetail() {
+	public String toGroupDetail(Integer id) {
 		
 		return "group/group_detail";
 	}

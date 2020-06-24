@@ -5,6 +5,7 @@
 	<title>callme</title>
 	<link rel= "stylesheet" th:href ="@{/css/header.css}">
 	<link rel= "stylesheet" th:href ="@{/css/common.css}">
+	<link rel= "stylesheet" th:href ="@{/css/group_join_list.css}">	
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -16,8 +17,10 @@
 	<div class="main">
 		<div class="form">
 			<div class="container">
-				<button class="login-button push-button" type="submit">グループ作成</button>
-				<button class="login-button push-button" type="submit">招待されているグループ</button>							
+				<div class="flex-list">
+					<div><a th:href="@{/group-register/to-group-register}" class="login-button push-button">グループ作成</a></div>				
+					<div><a th:href="@{/group-register/to-group-register}" class="login-button push-button">招待されているグループ</a></div>														
+				</div>
 				<div class="form-title">参加グループ</div>
 				<form th:action="@{/}" method="post">
 				

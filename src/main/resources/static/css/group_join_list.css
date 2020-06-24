@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.flex-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
+}
+
+.flex-list a {
+	width: 50%;
+	text-decoration: none;
+}
