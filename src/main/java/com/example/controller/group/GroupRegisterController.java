@@ -52,7 +52,6 @@ public class GroupRegisterController {
 		group = groupRegisterService.insert(group);
 
 		redirectAttributes.addAttribute("id", group.getId());
-		//redirectAttributes.addFlashAttribute("id", group.getId());
 		return "redirect:/group-detail/to-group-detail";
 	}
 

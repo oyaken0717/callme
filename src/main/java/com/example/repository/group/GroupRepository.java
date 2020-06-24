@@ -104,5 +104,33 @@ public class GroupRepository {
 		}
 		return groupList.get(0);
 	}
+	
+	/**
+	 * OwnerIdから所属しているグループを取得する.
+	 * 
+	 * @param id ユーザーのid
+	 * @return ユーザーがオーナーのグループのリスト
+	 */
+	public List<Group> findByOwnerId(Integer id){
+		
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+//■ Group
+		sql.append(" g.id g_id, g.name g_name, g.owner_id g_owner_id ");
+//■ FROM
+		sql.append("FROM ");
+		sql.append(" groups g ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" g.owner_id = :id ");
+//■ ORDER BY
+		sql.append("ORDER BY ");
+		sql.append(" g.id ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		List<Group> groupList = template.query(sql.toString(),param,GROUP_ROW_MAPPER);
+		return groupList;
+	} 
 
 }

@@ -18,11 +18,11 @@
 			<div class="container">
 				<div class="form-title">タスク登録</div>
 				<form th:action="@{/}" method="post">
-				
+					<input type="hidden" name="groupId" th:value="${groupId}">                                                
 					<p>タスク名：</p>
 					<input type="text" name="name">
 					<p>内容：</p>
-					<textarea rows="15" cols="50"></textarea>
+					<textarea rows="15" cols="50" name="content"></textarea>
 						
 					<div class="button">
 						<button class="login-button push-button" type="submit">登録</button>

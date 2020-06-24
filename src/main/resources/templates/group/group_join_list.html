@@ -22,13 +22,11 @@
 					<div><a th:href="@{/group-register/to-group-register}" class="login-button push-button">招待されているグループ</a></div>														
 				</div>
 				<div class="form-title">参加グループ</div>
-				<form th:action="@{/}" method="post">
 				
-					<p>グループ1</p>
-					<p>グループ2</p>
-					<p>グループ3</p>										
+					<div th:each="group:${groupList}">
+						<div><a th:href="@{/group-detail/to-group-detail(id=${group.id})}"th:text="${group.name}">グループ1</a></div>
+					</div>
 						
-				</form>
 			</div>
 		</div>	
 	</div>
