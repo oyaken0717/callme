@@ -1,10 +1,14 @@
 package com.example.repository.group;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -34,6 +38,16 @@ public class GroupRepository {
 		insert = insert.withTableName("groups").usingGeneratedKeyColumns("id");
 	}
 
+	private static final RowMapper<Group> GROUP_ROW_MAPPER = (rs, i) -> {
+		Group group = new Group();
+
+		group.setId(rs.getInt("g_id"));
+		group.setName(rs.getString("g_name"));
+		group.setOwnerId(rs.getInt("g_owner_id"));
+
+		return group;
+	};
+
 	/**
 	 * グループ情報を登録、更新する.
 	 * 
@@ -58,6 +72,37 @@ public class GroupRepository {
 //                template.update(sql.toString(), param);
 		}
 		return group;
+	}
+
+	/**
+	 * idからグループ情報を特定する.
+	 * 
+	 * @param id グループのid情報
+	 * @return idで特定されたグループ情報
+	 */
+	public Group load(Integer id) {
+		
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+//■ Group
+		sql.append(" g.id g_id, g.name g_name, g.owner_id g_owner_id ");
+//■ FROM
+		sql.append("FROM ");
+		sql.append(" groups g ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" g.id = :id ");
+//■ ORDER BY
+		sql.append("ORDER BY ");
+		sql.append(" g.id DESC ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		List<Group> groupList = template.query(sql.toString(),param,GROUP_ROW_MAPPER);
+		if (groupList.size()==0) {
+			return null;			
+		}
+		return groupList.get(0);
 	}
 
 }

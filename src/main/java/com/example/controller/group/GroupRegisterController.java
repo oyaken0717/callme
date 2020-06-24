@@ -50,8 +50,9 @@ public class GroupRegisterController {
 		BeanUtils.copyProperties(form, group);
 		group.setOwnerId(loginUser.getUser().getUserId());
 		group = groupRegisterService.insert(group);
-		
-		redirectAttributes.addFlashAttribute("id", group.getId());
+
+		redirectAttributes.addAttribute("id", group.getId());
+		//redirectAttributes.addFlashAttribute("id", group.getId());
 		return "redirect:/group-detail/to-group-detail";
 	}
 

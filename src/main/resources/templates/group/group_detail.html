@@ -17,17 +17,15 @@
 	<div class="main">
 		<div class="form">
 			<div class="container">
-				<!-- <div class="form-title">グループ登録</div> -->
-				<!-- <form th:action="@{/}" method="post"> -->
 				
-					<p class="group-name">グループ：●●</p>
-					<!-- <input type="text" name="name"> -->
-						
+					<p class="group-name" th:text="${group.name}">グループ：●●</p>						
 					<div class="button">
 						<button class="login-button push-button" type="submit">編集</button>
 						<button class="back-button push-button" type="submit">戻る</button>
 					</div>
-				<!-- </form> -->
+					<hr>
+					<div><a th:href="@{/group-register/to-group-register}" class="login-button push-button">タスクの登録</a></div>							
+					
 			</div>
 		</div>	
 	</div>
