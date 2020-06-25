@@ -17,7 +17,7 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">タスク登録</div>
-				<form th:action="@{/}" method="post">
+				<form th:action="@{/task-register/task-register}" method="post">
 					<input type="hidden" name="groupId" th:value="${groupId}">                                                
 					<p>タスク名：</p>
 					<input type="text" name="name">

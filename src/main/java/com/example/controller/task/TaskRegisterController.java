@@ -1,10 +1,16 @@
 package com.example.controller.task;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
+import com.example.domain.Task;
 import com.example.form.TaskForm;
+import com.example.service.task.TaskRegisterService;
 
 /**
  * タスクを登録するコントローラー.
@@ -15,6 +21,9 @@ import com.example.form.TaskForm;
 @Controller
 @RequestMapping("/task-register")
 public class TaskRegisterController {
+	
+	@Autowired
+	private TaskRegisterService taskRegisterService;
 	
 	/**
 	 * タスク登録画面へ.
@@ -34,9 +43,14 @@ public class TaskRegisterController {
 	 * @return 
 	 */
 	@RequestMapping("/task-register")
-	public String taskRegister(TaskForm form) {
-		
-		
+	public String taskRegister(TaskForm form,@AuthenticationPrincipal LoginUser loginUser) {
+
+		Task task = new Task();
+		BeanUtils.copyProperties(form, task);
+		task.setUserId(loginUser.getUser().getUserId());
+		task.setGroupId(form.getIntGroupId());
+
+		taskRegisterService.insert(task);
 		return "task/task_list";
 	}
 
