@@ -18,18 +18,29 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">グループに招待する</div>
-				<form th:action="@{/}" method="post">
-				
-					<p class="group-name">グループ名：◯◯</p>
-					<p>ユーザー検索：</p>
-					<input type="text" name="name">
-					<p class="invite-name">ユーザー2</p>
-					<p class="invite-name">ユーザー3</p>						
+				<form th:action="@{/invite_register/invite_register}" method="post">
+<!--■ グループ名 -->				
+					グループ名：<span class="group-name" th:text="${group.name}">グループ1</span>
+					<input type="hidden" name="groupId" th:value="${group.id}">                                                
+<!--■① ユーザー検索 -->					
+					<!-- <p>ユーザー検索：</p> -->
+					<!-- <input type="text" name="name"> -->
+<!--■ 検索結果 -->
+					<div th:each="user:${userList}">
+						<div class="invite-name">
+							<input th:unless="${user.userId==loginUserId}" type="checkbox" name="userList" th:text="${user.name}" th:value="${user.userId}">
+							<span  ></span>					
+						</div>
+					</div>
+											
+<!--■ 招待確定 -->
 					<div class="button">
 						<button class="register-invite-button push-button" type="submit">招待を確定する</button>
 					</div>
-					<p class="invite-list">招待するユーザー：</p>
-					<p class="invite-name">ユーザー1</p>
+<!--■② 招待候補 -->
+					<!-- <p class="invite-list">招待するユーザー：</p> -->
+
+					<!-- <p class="invite-name">ユーザー1</p> -->
 				</form>
 			</div>
 		</div>	

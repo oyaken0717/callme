@@ -76,6 +76,24 @@ public class UserRepository {
 	}
 	
 	/**
+	 * 全ユーザーの情報を取得する.
+	 * 
+	 * @return 全ユーザーのリスト
+	 */
+	public List<User> findAll() {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append("FROM ");
+		sql.append(" users u ");
+		
+		List<User> userList = template.query(sql.toString(), USER_ROW_MAPPER);
+		return userList;		
+	}
+	
+	
+	/**
 	 * ユーザー情報をemailから検索するメソッド.
 	 * 
 	 * @param email メールアドレス

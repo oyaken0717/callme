@@ -17,13 +17,11 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">ユーザー</div>
-				<form th:action="@{/}" method="post">
 				
-					<p>ユーザー1</p>
-					<p>ユーザー2</p>
-					<p>ユーザー3</p>										
+					<div th:each="user:${userList}">
+						<div><a th:href="@{/group-detail/to-group-detail(id=${user.userId})}"th:text="${user.name}">ユーザー1</a></div>
+					</div>
 						
-				</form>
 			</div>
 		</div>	
 	</div>
