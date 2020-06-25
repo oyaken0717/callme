@@ -17,13 +17,11 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">タスク</div>
-				<form th:action="@{/}" method="post">
 				
-					<p>タスク1</p>
-					<p>タスク2</p>
-					<p>タスク3</p>										
+				<div th:each="task:${taskList}">
+					<div><a th:href="@{/group-detail/to-group-detail(id=${task.id})}"th:text="${task.name}">グループ1</a></div>
+				</div>
 						
-				</form>
 			</div>
 		</div>	
 	</div>

@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.LoginUser;
 import com.example.domain.Task;
@@ -43,7 +44,7 @@ public class TaskRegisterController {
 	 * @return 
 	 */
 	@RequestMapping("/task-register")
-	public String taskRegister(TaskForm form,@AuthenticationPrincipal LoginUser loginUser) {
+	public String taskRegister(TaskForm form,@AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
 
 		Task task = new Task();
 		BeanUtils.copyProperties(form, task);
@@ -51,7 +52,8 @@ public class TaskRegisterController {
 		task.setGroupId(form.getIntGroupId());
 
 		taskRegisterService.insert(task);
-		return "task/task_list";
+		redirectAttributes.addAttribute("groupId", form.getIntGroupId());		
+		return "redirect:/task-list/to-task-list";
 	}
 
 }
