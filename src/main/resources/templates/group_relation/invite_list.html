@@ -19,9 +19,11 @@
 				<div class="form-title">招待されているグループ</div>
 				<form th:action="@{/}" method="post">
 				
-					<p>グループ1</p>
-					<p>グループ2</p>
-					<p>グループ3</p>										
+					<div th:each="group:${groupList}">
+						<span th:text="${group.name}">グループ1</span>
+						<a th:href="@{/invite_group_join/group-join(groupId=${group.id})}">参加する</a>
+						<a th:href="@{/group-detail/to-group-detail(id=${group.id})}">参加しない</a>
+					</div>
 						
 				</form>
 			</div>

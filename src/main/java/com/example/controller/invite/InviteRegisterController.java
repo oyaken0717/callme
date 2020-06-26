@@ -70,7 +70,7 @@ public class InviteRegisterController {
 	}
 	
 	/**
-	 * inviteRegisterのフォローメソッド.<br>
+	 * 「inviteRegister」メソッドのサポートメソッド.<br>
 	 * formからdomainに値を入れる。<br>
 	 * userListに入ったユーザーのid分insertを回す。
 	 * 
