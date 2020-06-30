@@ -48,7 +48,7 @@ public class InviteRegisterController {
 		
 		Group group = groupDetailService.load(groupId);
 		List<User> userList = userListService.findAll();
-		
+				
 		model.addAttribute("group",group);
 		model.addAttribute("userList",userList);
 		model.addAttribute("loginUserId",loginUser.getUser().getUserId());
@@ -75,16 +75,14 @@ public class InviteRegisterController {
 	 * userListに入ったユーザーのid分insertを回す。
 	 * 
 	 */
-	public void setGroupRelation(GroupRelationForm form) {
-		
-		//■ formからdomainに値を入れる。
-		//■ userListに入ったユーザーのid分insertを回す。
-		GroupRelation groupRelation = new GroupRelation();
-		groupRelation.setGroupId(form.getIntGroupId());
-		//■ グループ参加状況 0:招待中 1:参加 9:不参加
-		groupRelation.setStatus(0);
+	public void setGroupRelation(GroupRelationForm form) {	
 		
 		for (String userId : form.getUserList()) {
+			//■ userListに入ったユーザーのid分insertを回す。
+			GroupRelation groupRelation = new GroupRelation();
+			groupRelation.setGroupId(form.getIntGroupId());
+			//■ グループ参加状況 0:招待中 1:参加 9:不参加
+			groupRelation.setStatus(0);
 			groupRelation.setUserId(Integer.parseInt(userId));
 			groupRelationRegisterService.insert(groupRelation);
 		}

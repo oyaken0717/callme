@@ -27,6 +27,10 @@
 					<div><a th:href="@{/invite_register/to_invite_register(groupId=${group.id})}" class="login-button push-button">グループに招待する</a></div>
 					<div><a th:href="@{/task-register/to-task-register(groupId=${group.id})}" class="login-button push-button">タスクの登録</a></div>
 					
+					<div th:each="task:${group.taskList}">
+						<div th:text="${task.name}">
+					</div>
+					
 			</div>
 		</div>	
 	</div>

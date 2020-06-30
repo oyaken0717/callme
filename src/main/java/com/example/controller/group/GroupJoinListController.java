@@ -33,7 +33,11 @@ public class GroupJoinListController {
 	@RequestMapping("/to-group-join-list")
 	public String toGroupJoinList(@AuthenticationPrincipal LoginUser loginUser,Model model) {
 		
-		List<Group> groupList = groupJoinListService.findByOwnerId(loginUser.getUser().getUserId());
+		List<Group> ownerGroupList = groupJoinListService.findByOwnerId(loginUser.getUser().getUserId());
+		//■ status 1:参加 
+		List<Group> groupList = groupJoinListService.findByUserId(loginUser.getUser().getUserId(),1);
+				
+		model.addAttribute("ownerGroupList",ownerGroupList);
 		model.addAttribute("groupList",groupList);
 		return "group/group_join_list";
 	}

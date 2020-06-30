@@ -2,8 +2,6 @@ package com.example.domain;
 
 import java.util.List;
 
-import org.springframework.scheduling.config.Task;
-
 public class Group {
 
 	/** グループid */

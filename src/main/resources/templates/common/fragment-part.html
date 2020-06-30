@@ -18,7 +18,7 @@
         	<div class="header-logo">callme</div>
         	
 			<div class="header-list">
-				<div id="headerName" class="header-list-header">ユーザー名</div>
+				<div id="headerName" class="header-list-header"><span sec:authentication="principal.User.name">ユーザー名</span></div>
 				<ul id="headerItem">
 					<li>グループ</li>
 					<li>プロフィール</li>

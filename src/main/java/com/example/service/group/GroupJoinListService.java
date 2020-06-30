@@ -30,5 +30,16 @@ public class GroupJoinListService {
 		List<Group> groupList = groupRepository.findByOwnerId(id);
 		return groupList;
 	}
+
+	/**
+	 * ユーザーidから参加しているグループのリストを取得する.
+	 * 
+	 * @param id ユーザーのid
+	 * @return 参加しているユーザーのリスト
+	 */
+	public List<Group> findByUserId(Integer id,Integer status){
+		List<Group> groupList = groupRepository.findByUserId(id,status);
+		return groupList;
+	}
 	
 }

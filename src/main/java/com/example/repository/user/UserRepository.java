@@ -116,4 +116,32 @@ public class UserRepository {
 		}
 		return userList.get(0);		
 	}
+	
+    /**
+     * 検索フォームから入力されたnameからあいまい検索.
+     * 
+     * @param name 検索フォームから入力されたname
+     * @return 該当するユーザーリスト
+     */
+	public List<User> findByName(String name) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+//■ User
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+//■ FROM
+		sql.append("FROM ");
+		sql.append(" users u ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" u.name LIKE :name ");		
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%");
+		List<User> userList = template.query(sql.toString(), param, USER_ROW_MAPPER);
+		if (userList.isEmpty()) {
+			return null;
+		}
+		return userList;
+	}
+
 }

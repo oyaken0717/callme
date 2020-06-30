@@ -85,13 +85,6 @@ public class GroupRelationRepository {
 			groupRelation.setId(key.intValue());
 		} else {
         	StringBuilder sql=new StringBuilder();
-
-//            sql.append("UPDATE ");
-//            sql.append(" group_relations gr ");
-//            sql.append("SET ");
-//            sql.append(" gr.id gr_id=:id, gr.group_id gr_group_id=:groupId, gr.user_id gr_user_id=:userId, gr.status gr_status=:status ");
-//            sql.append("WHERE ");
-//            sql.append(" gr.id=:id" );
         	
             sql.append("UPDATE ");
             sql.append(" group_relations ");
