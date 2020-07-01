@@ -126,6 +126,27 @@ public class UserRepository {
 	}
 	
 	/**
+	 * idからユーザー情報を取得する.
+	 * 
+	 * @param id
+	 * @return ユーザー
+	 */
+	public User load(Integer id) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append("FROM ");
+		sql.append(" users u ");
+		sql.append("WHERE ");
+		sql.append(" u.user_id = :id ");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		User user = template.queryForObject(sql.toString(), param, USER_ROW_MAPPER);
+		return user;		
+	} 
+	
+	/**
 	 * ユーザー情報をemailから検索するメソッド.
 	 * 
 	 * @param email メールアドレス

@@ -21,7 +21,7 @@
 				<div id="headerName" class="header-list-header"><span sec:authentication="principal.User.name">ユーザー名</span></div>
 				<ul id="headerItem">
 					<li>グループ</li>
-					<li>プロフィール</li>
+					<li><a th:href="@{/user-detail/to-user-detail}">プロフィール</a></li>
 					<li>ログアウト</li>
 				</ul>
 			</div>
