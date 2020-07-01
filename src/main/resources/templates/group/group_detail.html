@@ -24,7 +24,9 @@
 						<button class="back-button push-button" type="submit">戻る</button>
 					</div>
 					<hr>
+					<div><a th:href="@{/user-group-join-list/to-user-group-list(groupId=${group.id})}" class="login-button push-button">参加ユーザー</a></div>					
 					<div><a th:href="@{/invite_register/to_invite_register(groupId=${group.id})}" class="login-button push-button">グループに招待する</a></div>
+					<hr>
 					<div><a th:href="@{/task-register/to-task-register(groupId=${group.id})}" class="login-button push-button">タスクの登録</a></div>
 					
 					<div th:each="task:${group.taskList}">

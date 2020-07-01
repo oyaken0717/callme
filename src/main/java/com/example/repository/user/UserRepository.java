@@ -1,11 +1,13 @@
 package com.example.repository.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -48,6 +50,37 @@ public class UserRepository {
 
 		return user;
 	};
+	
+	private static final ResultSetExtractor<List<User>> User_RESULT_SET_EXTRACTOR = (rs) -> {			
+		List<User> userList = new ArrayList<>();		
+//		List<★★> ★★List = null;		
+//		List<●●> ●●List = null;		
+				
+		Integer nowUserId;		
+		Integer beforeUserId = 0;		
+		while (rs.next()) {		
+			nowUserId  = rs.getInt("u_user_id");	
+			if (nowUserId != beforeUserId) {	
+				User user = new User();
+				user.setUserId(rs.getInt("u_user_id"));
+				user.setName(rs.getString("u_name"));
+				user.setEmail(rs.getString("u_email"));
+				user.setPassword(rs.getString("u_password"));	
+//				★★List = new ArrayList;	
+//				●●.set★★List(★★List);	
+				
+				userList.add(user);	
+			}	
+				
+//			if (rs.get★★("★★") != 0) {	
+//				
+//				
+//				★★List.add(★★);	
+//			}	
+			beforeUserId = nowUserId;	
+		}		
+		return userList;		
+	};			
 
 	/**
 	 * ユーザー情報を登録、更新する.
@@ -91,7 +124,6 @@ public class UserRepository {
 		List<User> userList = template.query(sql.toString(), USER_ROW_MAPPER);
 		return userList;		
 	}
-	
 	
 	/**
 	 * ユーザー情報をemailから検索するメソッド.
@@ -138,6 +170,37 @@ public class UserRepository {
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%");
 		List<User> userList = template.query(sql.toString(), param, USER_ROW_MAPPER);
+		if (userList.isEmpty()) {
+			return null;
+		}
+		return userList;
+	}
+
+	/**
+	 * グループに所属している全ユーザー情報を取得する.
+	 * 
+	 * @param groupId グループid
+	 * @return ユーザーリスト
+	 */
+	public List<User> findByGroupId(Integer groupId) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+//■ User
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+//■ FROM
+		sql.append("FROM ");
+		sql.append(" users u ");
+//■ JOIN
+		sql.append("LEFT OUTER JOIN group_relations gr ON u.user_id = gr.user_id ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" gr.group_id = :groupId ");		
+		sql.append("AND ");
+		sql.append(" gr.status = 1 ");		
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId",groupId);
+		List<User> userList = template.query(sql.toString(), param, User_RESULT_SET_EXTRACTOR);
 		if (userList.isEmpty()) {
 			return null;
 		}
