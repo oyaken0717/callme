@@ -17,13 +17,14 @@
 		<div class="form">
 			<div class="container">
 				
-					<p>タスク名：●●</p>
+					<p>タスク名：<span th:text="${task.name}">タスク1</span></p>
+					
 					<div class="button">
-						<button class="login-button push-button" type="submit">登録</button>
-						<button class="back-button push-button" type="submit">戻る</button>
+						<a class="login-button push-button" th:href="@{/task-edit/to-task-edit(id=${task.id})}">編集</a>
+						<a class="back-button push-button" th:href="@{/user-detail/to-user-detail}">戻る</a>
 					</div>
-					<div>タスク内容記載予定</div>
-					<textarea rows="15" cols="50"></textarea>
+					<div>タスク内容</div>
+					<div th:text="${task.content}">タスク1</div>
 						
 			</div>
 		</div>	

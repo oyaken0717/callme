@@ -30,7 +30,7 @@
 					<div><a th:href="@{/task-register/to-task-register(groupId=${group.id})}" class="login-button push-button">タスクの登録</a></div>
 					
 					<div th:each="task:${group.taskList}">
-						<div th:text="${task.name}">
+						<a th:href="@{/task-detail/to-task-detail(id=${task.id})}"><span th:text="${task.name}">タスク1</span></a>
 					</div>
 					
 			</div>

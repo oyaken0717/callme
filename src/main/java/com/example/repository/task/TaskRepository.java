@@ -62,19 +62,45 @@ public class TaskRepository {
 			Number key = insert.executeAndReturnKey(param);
 			task.setId(key.intValue());
 		} else {
-//        	StringBuilder sql=new StringBuilder();
-//                //■①INNER JOIN > 左と右のテーブルがあるのが前提 > 無いとエラー
-//                //  ②LEFT OUTER JOIN > 基本LEFT OUTER JOINでOK > 左側に右側をくっつける > 右なくてもエラーにならない。
-//                sql.append("UPDATE orders SET user_id=:userId,status=:status,total_price=:totalPrice,order_date=:orderDate,");
-//                sql.append("destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,");
-//                sql.append("destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,");
-//                sql.append("payment_method=:paymentMethod WHERE id=:id");
-//
-//                //■ 「sql.toString()」に変更注意
-//                template.update(sql.toString(), param);
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("UPDATE ");
+			sql.append(" tasks ");
+			sql.append("SET ");
+			sql.append(" id =:id, name =:name, content =:content, user_id =:userId, group_id =:groupId ");
+			sql.append("WHERE ");
+			sql.append(" id =:id ");
+			
+			template.update(sql.toString(), param);
 		}
 		return task;
 	}
+	
+	/**
+	 * idからタスクを取得する.
+	 * 
+	 * @param id タスクのid
+	 * @return タスク
+	 */
+	public Task load(Integer id) {
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+//■ Task
+		sql.append(" t.id t_id, t.name t_name, t.content t_content, t.user_id t_user_id, t.group_id t_group_id ");
+//■ FROM
+		sql.append("FROM ");
+		sql.append(" tasks t ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" t.id = :id ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Task task = template.queryForObject(sql.toString(),param,TASK_ROW_MAPPER);
+		
+		return task;
+	}	
 
 	/**
 	 * groupのidからtaskを取得する.

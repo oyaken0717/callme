@@ -17,12 +17,17 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">タスク編集</div>
-				<form th:action="@{/}" method="post">
+				<form th:action="@{/task-edit/task-edit}" th:method="post" th:object="${taskForm}">
 				
+					<input type="hidden" name="id" th:field="*{id}">
+					<input type="hidden" name="userId" th:field="*{userId}">
+					<input type="hidden" name="groupId" th:field="*{groupId}">
+					
 					<p>タスク名：</p>
-					<input type="text" name="name">
+					<input type="text" name="name" th:field="*{name}">
+					
 					<p>内容：</p>
-					<textarea rows="15" cols="50"></textarea>
+					<textarea rows="15" cols="50" th:field="*{content}"></textarea>
 						
 					<div class="button">
 						<button class="login-button push-button" type="submit">更新</button>
