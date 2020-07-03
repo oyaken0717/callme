@@ -24,14 +24,29 @@ public class UserDetailController {
 	private UserDetailService userDetailService;
 	
 	/**
-	 * ユーザー詳細画面へ.
+	 * プロフィール画面へ.
 	 * 
-	 * @return ユーザー詳細画面
+	 * @return プロフィール詳細画面
 	 */
-	@RequestMapping("/to-user-detail")
-	public String toUserDetail(@AuthenticationPrincipal LoginUser loginUser,Model model) {
+	@RequestMapping("/to-user-profile-detail")
+	public String toUserProfileDetail(@AuthenticationPrincipal LoginUser loginUser,Model model) {
 		User user = userDetailService.load(loginUser.getUser().getUserId());
 		model.addAttribute("user", user);
 		return "user/user_detail";
 	}
+
+	/**
+	 * ユーザー詳細画面へ
+	 * 
+	 * @param userId 指定されたユーザーのid
+	 * @param model モデル
+	 * @return ユーザー詳細画面
+	 */
+	@RequestMapping("/to-user-detail")
+	public String toUserDetail(Integer userId,Model model) {
+		User user = userDetailService.load(userId);
+		model.addAttribute("user", user);
+		return "user/user_detail";
+	}
+
 }

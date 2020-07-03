@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * @author oyamadakenji
  *
  */
-public class UserForm {
+public class UserEditForm {
 
 	/** ユーザーid */
 	private String userId;
@@ -20,13 +20,14 @@ public class UserForm {
 	/** メールアドレス */
 	@NotNull(message = "メールアドレスを入力してください")
 	private String email;
+	
+	/** 現在のパスワード */
+	private String password;	
 
-	/** パスワード */
-	@NotNull(message = "パスワードを入力してください")
-	private String password;
+	/** 新しいパスワード */
+	private String newPassword;
 
 	/** 確認用パスワード */
-	@NotNull(message = "確認用パスワードを入力してください")
 	private String passwordConfirmation;
 	
 //■ getIntーーーーー
@@ -38,46 +39,42 @@ public class UserForm {
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
 	public String getPasswordConfirmation() {
 		return passwordConfirmation;
 	}
-
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
 	}
-
 	@Override
 	public String toString() {
-		return "UserForm [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", passwordConfirmation=" + passwordConfirmation + "]";
+		return "UserEditForm [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
+				+ ", newPassword=" + newPassword + ", passwordConfirmation=" + passwordConfirmation + "]";
 	}
 }

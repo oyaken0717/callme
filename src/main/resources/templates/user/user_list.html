@@ -19,7 +19,7 @@
 				<div class="form-title">ユーザー</div>
 				
 					<div th:each="user:${userList}">
-						<div><a th:href="@{/group-detail/to-group-detail(id=${user.userId})}"th:text="${user.name}">ユーザー1</a></div>
+						<div><a th:href="@{/user-detail/to-user-detail(userId=${user.userId})}"th:text="${user.name}">ユーザー1</a></div>
 					</div>
 						
 			</div>

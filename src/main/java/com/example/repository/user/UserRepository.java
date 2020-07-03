@@ -94,16 +94,16 @@ public class UserRepository {
 			Number key = insert.executeAndReturnKey(param);
 			user.setUserId(key.intValue());
 		} else {
-//        	StringBuilder sql=new StringBuilder();
-//                //■①INNER JOIN > 左と右のテーブルがあるのが前提 > 無いとエラー
-//                //  ②LEFT OUTER JOIN > 基本LEFT OUTER JOINでOK > 左側に右側をくっつける > 右なくてもエラーにならない。
-//                sql.append("UPDATE orders SET user_id=:userId,status=:status,total_price=:totalPrice,order_date=:orderDate,");
-//                sql.append("destination_name=:destinationName,destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,");
-//                sql.append("destination_address=:destinationAddress,destination_tel=:destinationTel,delivery_time=:deliveryTime,");
-//                sql.append("payment_method=:paymentMethod WHERE id=:id");
-//
-//                //■ 「sql.toString()」に変更注意
-//                template.update(sql.toString(), param);
+			StringBuilder sql = new StringBuilder();
+
+			sql.append("UPDATE ");
+			sql.append(" users ");
+			sql.append("SET ");
+			sql.append(" user_id =:userId , name =:name , email =:email , password =:password ");
+			sql.append("WHERE ");
+			sql.append(" user_id =:userId ");
+			
+            template.update(sql.toString(), param);
 		}
 		return user;
 	}

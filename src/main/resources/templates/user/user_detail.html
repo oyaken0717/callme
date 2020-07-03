@@ -17,17 +17,14 @@
 	<div class="main">
 		<div class="form">
 			<div class="container">
-				<!-- <div class="form-title">グループ登録</div> -->
-				<!-- <form th:action="@{/}" method="post"> -->
 				
 					<p class="group-name">ユーザー：<span th:text="${user.name}"></span></p>
-					<!-- <input type="text" name="name"> -->
 						
 					<div class="button">
-						<button class="login-button push-button" type="submit">編集</button>
-						<button class="back-button push-button" type="submit">戻る</button>
+						<a class="login-button push-button" th:href="@{/user-edit/to-user-edit(userId=${user.userId})}">編集</a>
+						<a class="back-button push-button" th:href="@{/user-detail/to-user-detail}">戻る</a>
 					</div>
-				<!-- </form> -->
+
 			</div>
 		</div>	
 	</div>
