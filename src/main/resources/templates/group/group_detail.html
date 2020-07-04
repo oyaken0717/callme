@@ -20,7 +20,7 @@
 				
 					<p class="group-name" th:text="${group.name}">グループ：●●</p>						
 					<div class="button">
-						<button class="login-button push-button" type="submit">編集</button>
+						<a  class="login-button push-button" th:href="@{/group-edit/to-group-edit(id=${group.id})}">編集</a>
 						<button class="back-button push-button" type="submit">戻る</button>
 					</div>
 					<hr>

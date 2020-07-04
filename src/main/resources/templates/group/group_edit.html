@@ -18,14 +18,17 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">グループ編集</div>
-				<form th:action="@{/}" method="post">
+				<form th:action="@{/group-edit/group-edit}" method="post" th:object="${groupForm}">
+
+					<input type="hidden" name="id" th:field="*{id}">
+					<input type="hidden" name="ownerId" th:field="*{ownerId}">
 				
 					<p>グループ名</p>
-					<input type="text" name="name">
+					<input type="text" name="name" th:field="*{name}">
 						
 					<div class="button">
-						<button class="login-button push-button" type="submit">更新</button>
-						<button class="back-button push-button" type="submit">戻る</button>
+						<button class="login-button push-button" type="submit">更新</button>						
+						<a class="back-button push-button" th:href="@{/group-edit/to-group-edit}">戻る</a>
 					</div>
 				</form>
 			</div>
