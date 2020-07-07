@@ -124,7 +124,48 @@ public class UserRepository {
 		List<User> userList = template.query(sql.toString(), USER_ROW_MAPPER);
 		return userList;		
 	}
-	
+
+	/**
+	 * 今までグループに招待されていなかった人を取得する.
+	 * 
+	 * @param id ログインユーザーのid
+	 * @return 今までグループに招待されていなかったユーザー一覧
+	 */
+	public List<User> findByLikeNameAndUserIdAndGroupId(String name,Integer userId,Integer groupId) {
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+//■ FROM		
+		sql.append("FROM ");
+		sql.append(" users u ");
+//■ WHERE
+		sql.append("WHERE ");
+		sql.append(" u.name LIKE :name ");
+		sql.append("AND ");
+		sql.append(" u.user_id != :userId ");
+		sql.append("AND ");
+//■ NOT IN -以下のSELECTに当てはまるユーザー「以外」-		
+		sql.append(" u.user_id NOT IN ( ");
+		sql.append("  SELECT ");
+		sql.append("   user_id ");
+//■ FROM
+		sql.append("  FROM ");
+		sql.append("   group_relations ");
+//■ WHERE		
+		sql.append("  WHERE ");
+		sql.append("   group_id =:groupId ");
+//■ AND		
+		sql.append("  AND ");
+		sql.append("   status IN (0,1) ");
+		sql.append(" ) ");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name","%" + name + "%").addValue("userId",userId).addValue("groupId",groupId);
+		List<User> userList = template.query(sql.toString(),param,USER_ROW_MAPPER);
+		return userList;		
+	}
+		
 	/**
 	 * idからユーザー情報を取得する.
 	 * 

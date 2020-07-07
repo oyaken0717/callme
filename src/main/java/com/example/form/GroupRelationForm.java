@@ -14,15 +14,12 @@ public class GroupRelationForm {
 
 	/** グループ関係のid */
 	private String id;
-
 	/** グループのid */
 	@NotNull(message = "グループのidを入力してください")
 	private String groupId;
-
 	/** checkboxがTRUEの招待されたユーザーのidがリストで入る */
 	@NotNull(message = "ユーザーのidを入力してください")
 	private List<String> userList;
-
 	/** グループ参加状況 0:招待中 1:参加 9:不参加  */
 	@NotNull(message = "グループ参加状況 0:招待中 1:参加 9:不参加 を入力してください")
 	private String status;

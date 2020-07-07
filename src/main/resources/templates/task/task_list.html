@@ -19,7 +19,7 @@
 				<div class="form-title">タスク</div>
 				
 				<div th:each="task:${taskList}">
-					<div><a th:href="@{/group-detail/to-group-detail(id=${task.id})}"th:text="${task.name}">グループ1</a></div>
+					<div><a th:href="@{/task-detail/to-task-detail(id=${task.id})}" th:text="${task.name}">グループ1</a></div>
 				</div>
 						
 			</div>

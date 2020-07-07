@@ -28,8 +28,8 @@ public class UserInviteService {
      * @param name 検索フォームから入力されたname
      * @return 該当するユーザーリスト
      */	
-	public List<User> findByName(String name) {
-		List<User> userList = userRepository.findByName(name);
+	public List<User> findByLikeNameAndUserIdAndGroupId(String name,Integer userId,Integer groupId) {
+		List<User> userList = userRepository.findByLikeNameAndUserIdAndGroupId(name,userId,groupId);
 		return userList;
 	}
 

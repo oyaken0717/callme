@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.domain.GroupRelation;
 import com.example.domain.User;
+import com.example.form.GroupRelationForm;
 import com.example.repository.group_relation.GroupRelationRepository;
 
 /**
@@ -20,6 +21,27 @@ public class GroupRelationRegisterService {
 
 	@Autowired
 	private GroupRelationRepository groupRelationRepository;
+
+	/**
+	 * 「inviteRegister」メソッドのサポートメソッド.<br>
+	 * 1.formからdomainに値を入れる。<br>
+	 * 2.userListに入ったユーザーのid分insertを回す。
+	 * 
+	 */
+	public void setGroupRelation(GroupRelationForm form) {	
+		
+		//■ userListに入ったユーザーのid分insertを回す。
+		for (String userId : form.getUserList()) {
+			GroupRelation groupRelation = new GroupRelation();
+			groupRelation.setGroupId(form.getIntGroupId());
+			
+			//■ グループ参加状況 0:招待中 1:参加 9:不参加
+			groupRelation.setStatus(0);
+			groupRelation.setUserId(Integer.parseInt(userId));
+			insert(groupRelation);
+		}
+
+	}
 	
 	/**
 	 * グループへ招待する.

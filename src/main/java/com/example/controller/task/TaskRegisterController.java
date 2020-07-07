@@ -52,8 +52,8 @@ public class TaskRegisterController {
 		task.setGroupId(form.getIntGroupId());
 
 		taskRegisterService.insert(task);
-		redirectAttributes.addAttribute("groupId", form.getIntGroupId());		
-		return "redirect:/task-list/to-task-list";
+		redirectAttributes.addAttribute("id", form.getIntGroupId());		
+		return "redirect:/group-detail/to-group-detail";
 	}
 
 }

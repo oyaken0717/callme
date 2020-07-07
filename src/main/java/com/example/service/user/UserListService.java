@@ -29,4 +29,15 @@ public class UserListService {
 		List<User> userList = userRepository.findAll();
 		return userList;
 	}
+
+//	/**
+//	 * 今までグループに招待されていなかった人を取得する.
+//	 * 
+//	 * @param id ログインユーザーのid
+//	 * @return 今までグループに招待されていなかったユーザー一覧
+//	 */
+//	public List<User> findByStatusAndUserId(Integer userId,Integer groupId){
+//		List<User> userList = userRepository.findByStatusAndUserId(userId,groupId);
+//		return userList;
+//	}
 }

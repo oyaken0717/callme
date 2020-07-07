@@ -19,10 +19,9 @@
 			<div class="container">
 				<div class="form-title">グループに招待する</div>
 				<form th:action="@{/invite_register/invite_register}" method="post">
-					<input type="hidden" id="userId" th:value="${userId}">					
 <!--■ グループ名 -->
 					グループ名：<span class="group-name" th:text="${group.name}">グループ1</span>
-					<input type="hidden" id="groupId" name="groupId" th:value="${group.id}">
+					<input type="hidden" name="groupId" th:value="${group.id}">
 <!--■ ①ユーザー検索 -->
 					<p>ユーザー検索：</p>
 					<input type="text" id="searchUser">
@@ -30,7 +29,7 @@
 			  		<div id="addSearchUser">
 				  		<!--■ 検索結果の表示 -->
 				  	</div>
-					<!-- <input type="hidden" class="loginUserId" th:value="${loginUserId}"> -->					
+					<input type="hidden" class="loginUserId" th:value="${loginUserId}">					
 <!--■ ②招待確定 -->
 					<div class="button">
 						<button class="register-invite-button push-button" type="submit">招待を確定する</button>

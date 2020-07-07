@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/img/**", 
 				"/js/**", 
 				"/fonts/**", 
-				"/api-user-search/find-by-name");
+				"/api-user-search/find-by-like-name-and-user-id-and-group-id"
+				);
 	}
 
 	@Override
