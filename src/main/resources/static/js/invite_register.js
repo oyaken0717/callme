@@ -29,30 +29,23 @@ $(function() {
 	    	//■ 「招待するユーザー」を配列に入れる。
 			var inviteUsers = [];
 			var inviteUsers = $(".inviteUser");
+console.log("inviteUsers");
+console.log(inviteUsers);
 			
 			//■ 「招待するユーザー」と「検索結果のユーザー」が重複しないようにする。
 			if (inviteUsers.length >= 1) {
-				var temporaryDatas = [];
-				var count = data.length;				
-				for (let i = 0; i < count; i++) {	
-					for (const inviteUser of inviteUsers) {
-						if ( Number(data[i].userId) != Number(inviteUser.value) ) {
-							temporaryDatas.push(data);
-						}
-					//■ 内側のforの終わり
-					}	
-				//■ 外側のforの終わり
-				}
-				var data = [];
-				for (const temporaryData of temporaryDatas) {
-					data.push(temporaryData);
-				}
+//				https://www.it-swarm.dev/ja/javascript/2%E3%81%A4%E3%81%AEjavascript%E9%85%8D%E5%88%97%E3%82%92%E6%AF%94%E8%BC%83%E3%81%97%E3%81%A6%E9%87%8D%E8%A4%87%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/1071091800/
+				inviteUsers = inviteUsers.filter(function(inviteUser) {
+					return data.indexOf( Number(inviteUser.value) ) != -1;
+				});
+
 				//■ 検索にマッチしたユーザーを表示する。
 				$.each(data, function(index,user) {				
 					$("#addSearchUser").append("<div class=\"addUser\" ><input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">" + user.name +"</input></div>");				
-				});				
+				});			
+				
 			//■ ifの終わり
-			} else {
+			} else {					
 				//■ 検索にマッチしたユーザーを表示する。
 				$.each(data, function(index,user) {				
 					$("#addSearchUser").append("<div class=\"addUser\" ><input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">" + user.name +"</input></div>");				
