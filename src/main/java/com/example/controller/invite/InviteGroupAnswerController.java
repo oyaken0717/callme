@@ -4,13 +4,12 @@ package com.example.controller.invite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.GroupRelation;
 import com.example.domain.LoginUser;
-import com.example.service.group_relation.GroupRelationJoinService;
+import com.example.service.group_relation.GroupRelationAnswerService;
 
 /**
  * @author oyamadakenji
@@ -19,15 +18,15 @@ import com.example.service.group_relation.GroupRelationJoinService;
  *
  */
 @Controller
-@RequestMapping("/invite_group_join")
-public class InviteGroupJoinController {
+@RequestMapping("/invite_group_answer")
+public class InviteGroupAnswerController {
 
 	@Autowired
-	private GroupRelationJoinService groupRelationJoinService;
+	private GroupRelationAnswerService groupRelationAnswerService;
 	
 	/**
 	 * 
-	 * グループに参加する.
+	 * グループに参加、不参加を登録する.
 	 * 
 	 * @param groupId グループのid
 	 * @param loginUser ログインユーザーのid
@@ -35,17 +34,19 @@ public class InviteGroupJoinController {
 	 * 
 	 * @return グループ詳細画面
 	 */
-	@RequestMapping("/group-join")
-	public String groupJoin(Integer groupId,@AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
+	@RequestMapping("/invite-answer")
+	public String inviteAnswer(Integer groupId,Integer status,@AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
 		//■ 「status:0 招待中」のグループ関係を取得する。
-		GroupRelation groupRelation = groupRelationJoinService.findByGroupIdAndUserId(groupId, loginUser.getUser().getUserId());
-
-		//■ 更新する。
-		//■ 「status:1 参加」にする。
-		groupRelation.setStatus(1);
-		groupRelationJoinService.save(groupRelation);
+		GroupRelation groupRelation = groupRelationAnswerService.findByGroupIdAndUserId(groupId,loginUser.getUser().getUserId(),0);
+		groupRelation.setStatus(status); //■ 更新する。「status:1 参加, 9 不参加」を入れる。
+		
+		groupRelationAnswerService.save(groupRelation);
 		
 		redirectAttributes.addAttribute("id",groupRelation.getId());
-		return "redirect:/group-detail/to-group-detail";
+		
+		if (status == 9) { //■ 「status:9 不参加」
+			return "redirect:/group-detail/to-group-detail";			
+		}
+		return "redirect:/group-detail/to-group-detail";			
 	}
 }

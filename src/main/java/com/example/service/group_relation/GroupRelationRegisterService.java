@@ -50,11 +50,13 @@ public class GroupRelationRegisterService {
 	 * @return 
 	 */
 	public GroupRelation insert(GroupRelation groupRelation) {
-		//■ 以前、招待されたか?
-		// groupIdとuserIdから記録を調べる。
-		//■ YES > update
 		
-		//■ NO > insert
+		//■ 0:招待中 1:参加 に関しては招待画面のユーザー検索欄ですでに除外している > status 9:キャンセルの人を再度招待する時に使う。
+		GroupRelation preGroupRelation = groupRelationRepository.findByGroupIdAndUserIdAndStatus(groupRelation.getGroupId(),groupRelation.getUserId(), 9);
+		if (preGroupRelation != null) {
+			groupRelation.setId(preGroupRelation.getId());
+		}
+		
 		groupRelation = groupRelationRepository.save(groupRelation);
 		
 		return groupRelation;

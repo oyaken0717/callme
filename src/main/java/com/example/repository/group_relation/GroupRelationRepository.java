@@ -78,6 +78,12 @@ public class GroupRelationRepository {
 		return groupList;
 	};
 
+	/**
+	 * グループに招待するユーザーを登録または更新(参加キャンセルから再招待)
+	 * 
+	 * @param groupRelation どのグループに誰がどんな状態で所属しているか?
+	 * @return idが割り当てられたgroupRelation
+	 */
 	public GroupRelation save(GroupRelation groupRelation) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(groupRelation);
 		if (groupRelation.getId() == null) {
@@ -142,10 +148,40 @@ public class GroupRelationRepository {
 	 * 
 	 * 
 	 */
-	public GroupRelation findByGroupIdAndUserId(Integer groupId, Integer userId) {
+//	public GroupRelation findByGroupIdAndUserId(Integer groupId, Integer userId) {
+//
+//		StringBuilder sql = new StringBuilder();
+//
+//		sql.append("SELECT ");
+////■ GroupRelation
+//		sql.append(" gr.id gr_id, gr.group_id gr_group_id, gr.user_id gr_user_id, gr.status gr_status ");
+////■ FROM
+//		sql.append("FROM ");
+//		sql.append(" group_relations gr ");
+////■ WHERE
+//		sql.append("WHERE ");
+//		sql.append(" gr.group_id = :groupId ");
+//		sql.append("AND ");
+//		sql.append(" gr.user_id = :userId ");
+//
+//		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId", groupId).addValue("userId", userId);
+//		GroupRelation groupRelation = template.queryForObject(sql.toString(), param, GROUPRELATION_ROW_MAPPER);
+//		return groupRelation;
+//	}
 
+	
+	/**
+	 * ユーザー招待の時にstatus 9:不参加の登録がされていないかチェックする.
+	 * 
+	 * @param groupId グループのid
+	 * @param userId ユーザーのid
+	 * @param status グループ参加状況 0:招待中 1:参加 9:不参加
+	 * @return 取得したグループ関係
+	 */
+	public GroupRelation findByGroupIdAndUserIdAndStatus(Integer groupId, Integer userId, Integer status) {
+		
 		StringBuilder sql = new StringBuilder();
-
+		
 		sql.append("SELECT ");
 //■ GroupRelation
 		sql.append(" gr.id gr_id, gr.group_id gr_group_id, gr.user_id gr_user_id, gr.status gr_status ");
@@ -157,10 +193,15 @@ public class GroupRelationRepository {
 		sql.append(" gr.group_id = :groupId ");
 		sql.append("AND ");
 		sql.append(" gr.user_id = :userId ");
-
-		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId", groupId).addValue("userId", userId);
-		GroupRelation groupRelation = template.queryForObject(sql.toString(), param, GROUPRELATION_ROW_MAPPER);
-		return groupRelation;
+		sql.append("AND ");
+		sql.append(" gr.status = :status ");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId", groupId).addValue("userId", userId).addValue("status", status);
+		List<GroupRelation> groupRelationlist = template.query(sql.toString(), param, GROUPRELATION_ROW_MAPPER);
+		
+		if (groupRelationlist.size() == 0) {
+			return null;
+		}
+		return groupRelationlist.get(0);
 	}
-
 }

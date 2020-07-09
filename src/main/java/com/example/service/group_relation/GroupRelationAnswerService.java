@@ -13,7 +13,7 @@ import com.example.repository.group_relation.GroupRelationRepository;
  *
  */
 @Service
-public class GroupRelationJoinService {
+public class GroupRelationAnswerService {
 
 	@Autowired
 	private GroupRelationRepository groupRelationRepository;
@@ -25,11 +25,21 @@ public class GroupRelationJoinService {
 	 * @param userId 参加者のid
 	 * @return 招待中のグループの情報
 	 */
-	public GroupRelation findByGroupIdAndUserId(Integer groupId, Integer userId) {
-		GroupRelation groupRelation = groupRelationRepository.findByGroupIdAndUserId(groupId, userId);
+//	public GroupRelation findByGroupIdAndUserId(Integer groupId, Integer userId) {
+//		GroupRelation groupRelation = groupRelationRepository.findByGroupIdAndUserId(groupId, userId);
+//		return groupRelation;
+//	}
+	
+	public GroupRelation findByGroupIdAndUserId(Integer groupId,Integer userId,Integer status) {
+		GroupRelation groupRelation = groupRelationRepository.findByGroupIdAndUserIdAndStatus(groupId,userId,status);
 		return groupRelation;
 	}
 	
+	/**
+	 * グループに参加、不参加する情報を更新する.
+	 * 
+	 * @param groupRelation
+	 */
 	public void save(GroupRelation groupRelation) {
 		groupRelationRepository.save(groupRelation);
 	}

@@ -1,8 +1,6 @@
 
 package com.example.controller.invite;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,11 +10,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.domain.Group;
 import com.example.domain.LoginUser;
-import com.example.domain.User;
 import com.example.form.GroupRelationForm;
 import com.example.service.group.GroupDetailService;
 import com.example.service.group_relation.GroupRelationRegisterService;
-import com.example.service.user.UserListService;
 
 /**
  * @author oyamadakenji
@@ -28,9 +24,6 @@ import com.example.service.user.UserListService;
 @RequestMapping("/invite_register")
 public class InviteRegisterController {
 
-	@Autowired
-	private UserListService userListService;
-	
 	@Autowired
 	private GroupDetailService groupDetailService;
 	
