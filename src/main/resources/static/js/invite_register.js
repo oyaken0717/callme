@@ -29,8 +29,6 @@ $(function() {
 	    	//■ 「招待するユーザー」を配列に入れる。
 			var inviteUsers = [];
 			var inviteUsers = $(".inviteUser");
-console.log("inviteUsers");
-console.log(inviteUsers);
 			
 			//■ 「招待するユーザー」と「検索結果のユーザー」が重複しないようにする。
 			if (inviteUsers.length >= 1) {
@@ -61,11 +59,17 @@ console.log(inviteUsers);
 	});
 
 //■ ユーザー一覧から招待候補を確定する。
+//	$().on();では後から追加されたHTMLについてはクリックイベントが発動しない
     $(document).on("click", ".addUser", function() {	
     	var userName = $(this).text();
     	var userId = $(this).find(".childAddUser").val();
     	
-    	$(".invite-list").append("<div><input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"+userName+"</div>");
+    	$(".invite-list").append("<div class=\"candidateUser\"><input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"+userName+"</div>");
+    	$(this).remove();
+    });
+
+//■ やっぱり招待しない。
+    $(document).on("click",".candidateUser", function() {	
     	$(this).remove();
     });
 

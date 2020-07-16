@@ -47,6 +47,7 @@ public class UserRepository {
 		user.setName(rs.getString("u_name"));
 		user.setEmail(rs.getString("u_email"));
 		user.setPassword(rs.getString("u_password"));
+		user.setVersion(rs.getInt("u_version"));
 
 		return user;
 	};
@@ -66,6 +67,7 @@ public class UserRepository {
 				user.setName(rs.getString("u_name"));
 				user.setEmail(rs.getString("u_email"));
 				user.setPassword(rs.getString("u_password"));	
+				user.setVersion(rs.getInt("u_version"));
 //				★★List = new ArrayList;	
 //				●●.set★★List(★★List);	
 				
@@ -99,9 +101,12 @@ public class UserRepository {
 			sql.append("UPDATE ");
 			sql.append(" users ");
 			sql.append("SET ");
-			sql.append(" user_id =:userId , name =:name , email =:email , password =:password ");
+//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
+			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
 			sql.append("WHERE ");
 			sql.append(" user_id =:userId ");
+//			sql.append("AND ");
+//			sql.append(" version =:version ");
 			
             template.update(sql.toString(), param);
 		}
@@ -176,11 +181,34 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT ");
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 		sql.append("FROM ");
 		sql.append(" users u ");
 		sql.append("WHERE ");
 		sql.append(" u.user_id = :id ");
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		User user = template.queryForObject(sql.toString(), param, USER_ROW_MAPPER);
+		return user;		
+	} 
+
+	/**
+	 * 楽観処理の為に悲観処理を入れる<br>
+	 * FOR UPDATE
+	 * 
+	 * @param id ユーザーのid
+	 * @return ユーザー
+	 */
+	public User lockToLoad(Integer id) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
+		sql.append("FROM ");
+		sql.append(" users u ");
+		sql.append("WHERE ");
+		sql.append(" u.user_id = :id ");
+		sql.append("FOR UPDATE ");
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		User user = template.queryForObject(sql.toString(), param, USER_ROW_MAPPER);
@@ -197,7 +225,7 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT ");
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 		sql.append("FROM ");
 		sql.append(" users u ");
 		sql.append("WHERE ");

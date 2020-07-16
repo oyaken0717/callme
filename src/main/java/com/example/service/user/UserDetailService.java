@@ -30,4 +30,16 @@ public class UserDetailService {
 		User user = userRepository.load(id);
 		return user;
 	}
+
+	/**
+	 * 楽観処理の為に悲観処理を入れる<br>
+	 * FOR UPDATE
+	 * 
+	 * @param id ユーザーのid
+	 * @return ユーザー
+	 */
+	public User lockToLoad(Integer id) {
+		User user = userRepository.load(id);
+		return user;
+	}
 }

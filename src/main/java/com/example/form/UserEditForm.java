@@ -30,12 +30,18 @@ public class UserEditForm {
 	/** 確認用パスワード */
 	private String passwordConfirmation;
 	
+	/** ロック用のバージョン */
+	private String version;
+	
 //■ getIntーーーーー
 	public Integer getIntUserId() {
 	  return Integer.parseInt(userId);
 	}
-//　ーーーーーーーーー
-
+	public Integer getIntVersion() {
+	  return Integer.parseInt(version);
+	}
+//■ ーーーーーーーーー
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -72,9 +78,16 @@ public class UserEditForm {
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
 	}
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
 	@Override
 	public String toString() {
 		return "UserEditForm [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", newPassword=" + newPassword + ", passwordConfirmation=" + passwordConfirmation + "]";
+				+ ", newPassword=" + newPassword + ", passwordConfirmation=" + passwordConfirmation + ", version="
+				+ version + "]";
 	}
 }

@@ -20,6 +20,8 @@ public class User {
 	private String email;
 	/** パスワード */
 	private String password;
+	/** ロック用のバージョン */
+	private Integer version;
 	
 	/** 登録したタスクのリスト */
 	private List<Task> taskList;
@@ -50,6 +52,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 	public List<Task> getTaskList() {
 		return taskList;
 	}
@@ -65,6 +73,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", taskList=" + taskList + ", groupList=" + groupList + "]";
+				+ ", version=" + version + ", taskList=" + taskList + ", groupList=" + groupList + "]";
 	}
 }
