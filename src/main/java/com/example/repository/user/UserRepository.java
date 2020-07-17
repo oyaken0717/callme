@@ -101,17 +101,39 @@ public class UserRepository {
 			sql.append("UPDATE ");
 			sql.append(" users ");
 			sql.append("SET ");
-//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
-			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
+			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
+//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
 			sql.append("WHERE ");
 			sql.append(" user_id =:userId ");
-//			sql.append("AND ");
-//			sql.append(" version =:version ");
+			sql.append("AND ");
+			sql.append(" version =:version ");
 			
             template.update(sql.toString(), param);
 		}
 		return user;
 	}
+//	public User save(User user) {
+//		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+//		if (user.getUserId() == null) {
+//			Number key = insert.executeAndReturnKey(param);
+//			user.setUserId(key.intValue());
+//		} else {
+//			StringBuilder sql = new StringBuilder();
+//			
+//			sql.append("UPDATE ");
+//			sql.append(" users ");
+//			sql.append("SET ");
+////			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
+//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
+//			sql.append("WHERE ");
+//			sql.append(" user_id =:userId ");
+////			sql.append("AND ");
+////			sql.append(" version =:version ");
+//			
+//			template.update(sql.toString(), param);
+//		}
+//		return user;
+//	}
 	
 	/**
 	 * 全ユーザーの情報を取得する.
@@ -122,7 +144,7 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT ");
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 		sql.append("FROM ");
 		sql.append(" users u ");
 		
@@ -141,7 +163,7 @@ public class UserRepository {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT ");
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 //■ FROM		
 		sql.append("FROM ");
 		sql.append(" users u ");
@@ -250,7 +272,7 @@ public class UserRepository {
 
 		sql.append("SELECT ");
 //■ User
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 //■ FROM
 		sql.append("FROM ");
 		sql.append(" users u ");
@@ -277,7 +299,7 @@ public class UserRepository {
 
 		sql.append("SELECT ");
 //■ User
-		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password ");
+		sql.append(" u.user_id u_user_id, u.name u_name, u.email u_email, u.password u_password, u.version u_version ");
 //■ FROM
 		sql.append("FROM ");
 		sql.append(" users u ");

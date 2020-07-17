@@ -2,6 +2,7 @@ package com.example.service.group_relation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.GroupRelation;
 import com.example.repository.group_relation.GroupRelationRepository;
@@ -13,6 +14,7 @@ import com.example.repository.group_relation.GroupRelationRepository;
  *
  */
 @Service
+@Transactional
 public class GroupRelationAnswerService {
 
 	@Autowired

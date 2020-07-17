@@ -39,7 +39,7 @@ public class UserDetailService {
 	 * @return ユーザー
 	 */
 	public User lockToLoad(Integer id) {
-		User user = userRepository.load(id);
+		User user = userRepository.lockToLoad(id);
 		return user;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Group;
 import com.example.repository.group_relation.GroupRelationRepository;
@@ -15,6 +16,7 @@ import com.example.repository.group_relation.GroupRelationRepository;
  *
  */
 @Service
+@Transactional
 public class GroupRelationListService {
 	
 	@Autowired

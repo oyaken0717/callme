@@ -52,6 +52,14 @@ public class UserEditController {
 		return "user/user_edit";
 	}
 	
+	/**
+	 * ユーザーを更新する.
+	 * 
+	 * @param userEditForm ユーザー編集画面で入力されたフォーム
+	 * @param model モデル
+	 * @param redirectAttributes フラッシュ
+	 * @return ユーザー詳細画面/編集画面
+	 */
 	@RequestMapping("/user-edit")
 	public String userEdit(UserEditForm userEditForm,Model model,RedirectAttributes redirectAttributes) {
 		//■ パスワードのチェック	
@@ -69,13 +77,44 @@ public class UserEditController {
 		BeanUtils.copyProperties(userEditForm,lockUser);
 		lockUser.setUserId(userEditForm.getIntUserId());
 		lockUser.setPassword(password);
-		//■ 本当はSQLで version + 1 をしたいが返り値の問題でここで+1する。		
-		lockUser.setVersion(userEditForm.getIntVersion()+1);
+//		lockUser.setVersion(userEditForm.getIntVersion()+1);
+//		lockUser.setVersion(userEditForm.getIntVersion());
 
-		userEditService.save(lockUser);
+		try {
+			userEditService.save(lockUser);			
+		} catch (Exception e) {
+			model.addAttribute("userId", userEditForm.getIntUserId());
+			return toUserEdit(userEditForm.getIntUserId(),model);
+		}
 		
 		redirectAttributes.addAttribute("userId",userEditForm.getIntUserId());
 		return "redirect:/user-detail/to-user-detail";
 	}
+	
+//	@RequestMapping("/user-edit")
+//	public String userEdit(UserEditForm userEditForm,Model model,RedirectAttributes redirectAttributes) {
+//		//■ パスワードのチェック	
+//		
+//		User lockUser = userDetailService.lockToLoad(userEditForm.getIntUserId());
+//		
+//		//■ 楽観処理 ①編集画面の時のversionと②新しく取得したversionが合っているか確認する。
+//		if (userEditForm.getIntVersion() != lockUser.getVersion()) {
+//			model.addAttribute("userId", userEditForm.getIntUserId());
+//			return toUserEdit(userEditForm.getIntUserId(),model);
+//		}
+//		
+//		String password = lockUser.getPassword();
+//		
+//		BeanUtils.copyProperties(userEditForm,lockUser);
+//		lockUser.setUserId(userEditForm.getIntUserId());
+//		lockUser.setPassword(password);
+//		//■ 本当はSQLで version + 1 をしたいが返り値の問題でここで+1する。		
+//		lockUser.setVersion(userEditForm.getIntVersion()+1);
+//		
+//		userEditService.save(lockUser);
+//		
+//		redirectAttributes.addAttribute("userId",userEditForm.getIntUserId());
+//		return "redirect:/user-detail/to-user-detail";
+//	}
 	
 }
