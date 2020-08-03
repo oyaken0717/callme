@@ -4,6 +4,9 @@ $(function() {
 		
 		var hostUrl = 'http://localhost:8080/api-user-search/find-by-like-name-and-user-id-and-group-id';
 		var name = $("#searchUser").val();    
+
+console.log(name);
+		
 		var userId = $("#userId").val();    
 		var groupId = $("#groupId").val();    
 
@@ -33,13 +36,20 @@ $(function() {
 			//■ 「招待するユーザー」と「検索結果のユーザー」が重複しないようにする。
 			if (inviteUsers.length >= 1) {
 //				https://www.it-swarm.dev/ja/javascript/2%E3%81%A4%E3%81%AEjavascript%E9%85%8D%E5%88%97%E3%82%92%E6%AF%94%E8%BC%83%E3%81%97%E3%81%A6%E9%87%8D%E8%A4%87%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/1071091800/
-				inviteUsers = inviteUsers.filter(function(inviteUser) {
-					return data.indexOf( Number(inviteUser.value) ) != -1;
-				});
+//				inviteUsers = inviteUsers.filter(function(inviteUser) {
+//					return data.indexOf( Number(inviteUser.value) ) != -1;
+//				});
+				
+                var added_user_ids = {};
+                inviteUsers.each(function(index, inviteUser) {
+                    added_user_ids[inviteUser.value] = 1;
+                })
 
 				//■ 検索にマッチしたユーザーを表示する。
-				$.each(data, function(index,user) {				
-					$("#addSearchUser").append("<div class=\"addUser\" ><input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">" + user.name +"</input></div>");				
+				$.each(data, function(index,user) {	
+					if (!added_user_ids[user.userId]) {
+						$("#addSearchUser").append("<div class=\"addUser\" ><input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">" + user.name +"</input></div>");				
+					}
 				});			
 				
 			//■ ifの終わり

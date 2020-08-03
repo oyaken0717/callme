@@ -112,28 +112,6 @@ public class UserRepository {
 		}
 		return user;
 	}
-//	public User save(User user) {
-//		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
-//		if (user.getUserId() == null) {
-//			Number key = insert.executeAndReturnKey(param);
-//			user.setUserId(key.intValue());
-//		} else {
-//			StringBuilder sql = new StringBuilder();
-//			
-//			sql.append("UPDATE ");
-//			sql.append(" users ");
-//			sql.append("SET ");
-////			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
-//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
-//			sql.append("WHERE ");
-//			sql.append(" user_id =:userId ");
-////			sql.append("AND ");
-////			sql.append(" version =:version ");
-//			
-//			template.update(sql.toString(), param);
-//		}
-//		return user;
-//	}
 	
 	/**
 	 * 全ユーザーの情報を取得する.
@@ -318,5 +296,23 @@ public class UserRepository {
 		}
 		return userList;
 	}
+	
+	/**
+	 * ユーザー情報を削除する.
+	 * 
+	 * @param userId ユーザーid
+	 */
+	public void delete(Integer userId) {
+		StringBuilder sql = new StringBuilder();
 
+		sql.append("DELETE ");
+		sql.append("FROM ");
+		sql.append(" users ");
+		sql.append("WHERE ");
+		sql.append(" user_id  =:userId ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		template.update(sql.toString(),param);		
+	}
+	
 }

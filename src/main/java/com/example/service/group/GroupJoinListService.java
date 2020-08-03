@@ -39,8 +39,13 @@ public class GroupJoinListService {
 	 * @param id ユーザーのid
 	 * @return 参加しているユーザーのリスト
 	 */
-	public List<Group> findByUserId(Integer id,Integer status){
-		List<Group> groupList = groupRepository.findByUserId(id,status);
+	public List<Group> findByUserId(Integer id,Integer status, Integer page){
+		Integer offset = 0; 
+		if (page != null) {
+			Integer limit = 30;
+			offset = limit * (page - 1);
+		}
+		List<Group> groupList = groupRepository.findByUserId(id,status,offset);
 		return groupList;
 	}
 	

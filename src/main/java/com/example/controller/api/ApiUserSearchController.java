@@ -34,7 +34,12 @@ public class ApiUserSearchController {
      */
     @RequestMapping(value ="/find-by-like-name-and-user-id-and-group-id", method = RequestMethod.POST)
 	public List<User> findByLikeNameAndUserIdAndGroupId(String name,Integer userId,Integer groupId) {
-    	List<User> userList = userInviteService.findByLikeNameAndUserIdAndGroupId(name,userId,groupId);
+    	
+    	//■ keyupした時に何も入力なし > 何も表示しない。
+    	List<User> userList = null;
+    	if (!"".equals(name)) {
+    		userList = userInviteService.findByLikeNameAndUserIdAndGroupId(name,userId,groupId);
+		}
     	return userList;			
 	}	
 

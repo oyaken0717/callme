@@ -30,6 +30,10 @@
 					
 					<hr>
 					
+					<form th:action="@{/group-join-list/to-group-join-list}" method="post" th:object="${page}">
+						<input type="text" name="nowPage" th:field="*{nowPage}"><span>ページ</span>
+						<button class="login-button push-button" type="submit">Go</button>
+					</form>
 					<div th:each="group:${groupList}">
 						<div><a th:href="@{/group-detail/to-group-detail(id=${group.id})}"th:text="${group.name}">グループ1</a></div>
 					</div>

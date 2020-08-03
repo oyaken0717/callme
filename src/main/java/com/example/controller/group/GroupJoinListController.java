@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Group;
 import com.example.domain.LoginUser;
+import com.example.domain.Page;
 import com.example.service.group.GroupJoinListService;
 
 /**
@@ -31,14 +32,19 @@ public class GroupJoinListController {
 	 * @return 参加グループ表示画面
 	 */
 	@RequestMapping("/to-group-join-list")
-	public String toGroupJoinList(@AuthenticationPrincipal LoginUser loginUser,Model model) {
+	public String toGroupJoinList(@AuthenticationPrincipal LoginUser loginUser, Model model, Page page) {
+		//■初回遷移時
+		if (page.getNowPage() == null) {
+			page.setNowPage(1);
+		}
 		
 		List<Group> ownerGroupList = groupJoinListService.findByOwnerId(loginUser.getUser().getUserId());
 		//■ status 1:参加 
-		List<Group> groupList = groupJoinListService.findByUserId(loginUser.getUser().getUserId(),1);
+		List<Group> groupList = groupJoinListService.findByUserId(loginUser.getUser().getUserId(),1,page.getNowPage());
 				
 		model.addAttribute("ownerGroupList",ownerGroupList);
 		model.addAttribute("groupList",groupList);
+		model.addAttribute("page", page);
 		return "group/group_join_list";
 	}
 

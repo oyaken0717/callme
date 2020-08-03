@@ -30,7 +30,7 @@ import com.example.domain.Task;
  *
  */
 @Repository
-public class GroupRepository {
+public class GroupRepositoryオフセットが実装できたら消す {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
@@ -220,7 +220,7 @@ public class GroupRepository {
 	 * @param id ユーザーのid
 	 * @return 参加しているユーザーのリスト
 	 */
-	public List<Group> findByUserId(Integer id,Integer status, Integer offset) {
+	public List<Group> findByUserId(Integer id,Integer status) {
 
 		StringBuilder sql = new StringBuilder();
 
@@ -245,11 +245,8 @@ public class GroupRepository {
 //■ ORDER BY
 		sql.append("ORDER BY ");
 		sql.append(" g.id ");
-//■ LIMIT OFFSET
-		sql.append("LIMIT 30 ");
-		sql.append("OFFSET :OFFSET ");
-		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id).addValue("status", status).addValue("OFFSET", offset);;
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id).addValue("status", status);
 		List<Group> groupList = template.query(sql.toString(), param, GROUP_RESULT_SET_EXTRACTOR);
 		return groupList;
 	}
