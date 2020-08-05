@@ -1,5 +1,6 @@
 package com.example.form;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -14,7 +15,7 @@ public class UserForm {
 	private String userId;
 
 	/** ユーザー名 */
-	@NotNull(message = "ユーザー名を入力してください")
+	@NotBlank(message = "ユーザー名を入力してください")
 	private String name;
 
 	/** メールアドレス */

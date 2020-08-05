@@ -17,10 +17,11 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">登録</div>
-				<form th:action="@{/user-register/insert}" method="post">
+				<form th:action="@{/user-register/insert}" method="post" th:object="${userForm}">
 				
 					<p>名前</p>
-					<input type="text" name="name">
+					<div th:errors="*{name}" style="color:red"></div>
+					<input type="text" name="name" th:field="*{name}">
 					<p>メールアドレス</p>
 					<input type="text" name="email">
 					<p>パスワード</p>
@@ -32,6 +33,7 @@
 						<button class="login-button push-button" type="submit">登録</button>
 						<a th:href="@{/user-login/to-login}" class="register-button push-button">ログイン</a>
 					</div>
+					
 				</form>
 			</div>
 		</div>	
