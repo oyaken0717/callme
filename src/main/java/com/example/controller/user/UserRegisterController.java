@@ -50,6 +50,9 @@ public class UserRegisterController {
 	@RequestMapping("/insert")
 	public String insert(@Validated UserForm form, BindingResult result) {
 
+		//■ 入力されたEmailがすでに存在していないか確認する。		
+		
+		
 		if (result.hasErrors()) {
 			return toUserRegister();
 		}

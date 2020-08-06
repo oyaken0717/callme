@@ -22,12 +22,18 @@
 					<p>名前</p>
 					<div th:errors="*{name}" style="color:red"></div>
 					<input type="text" name="name" th:field="*{name}">
+					
 					<p>メールアドレス</p>
-					<input type="text" name="email">
+					<div th:errors="*{email}" style="color:red"></div>
+					<input type="text" name="email" th:field="*{email}">
+					
 					<p>パスワード</p>
-					<input type="password" name="password">
+					<div th:errors="*{password}" style="color:red"></div>
+					<input type="password" name="password" th:field="*{password}">
+					
 					<p>確認用パスワード</p>
-					<input type="password" name="passwordConfirmation"><br>
+					<div th:errors="*{passwordConfirmation}" style="color:red"></div>
+					<input type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
 						
 					<div class="button">
 						<button class="login-button push-button" type="submit">登録</button>
