@@ -1,6 +1,6 @@
 package com.example.form;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 public class GroupForm {
 
@@ -8,11 +8,10 @@ public class GroupForm {
 	private String id;
 
 	/** グループ名 */
-	@NotNull(message = "グループ名を入力してください")
+	@NotBlank(message = "グループ名を入力してください")
 	private String name;
 
 	/** グループを作ったユーザーのid */
-	@NotNull(message = "グループを作ったユーザーのidを入力してください")
 	private String ownerId;
 
 	//■ getIntーーーーー

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +26,11 @@ import com.example.service.task.TaskRegisterService;
 @RequestMapping("/task-register")
 public class TaskRegisterController {
 	
+	@ModelAttribute
+	public TaskForm setUpForm() {
+		return new TaskForm();
+	}
+	
 	@Autowired
 	private TaskRegisterService taskRegisterService;
 	
@@ -32,7 +40,7 @@ public class TaskRegisterController {
 	 * @return タスク登録画面
 	 */
 	@RequestMapping("/to-task-register")
-	public String toTaskRegsdter(Integer groupId,Model model) {
+	public String toTaskRegister(Integer groupId,Model model) {
         model.addAttribute("groupId",groupId);
 		return "task/task_register";
 	}
@@ -44,8 +52,12 @@ public class TaskRegisterController {
 	 * @return 
 	 */
 	@RequestMapping("/task-register")
-	public String taskRegister(TaskForm form,@AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
+	public String taskRegister(@Validated TaskForm form, BindingResult result, @AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes, Model model) {
 
+		if (result.hasErrors()) {
+			return toTaskRegister(form.getIntGroupId(),model);
+		}
+		
 		Task task = new Task();
 		BeanUtils.copyProperties(form, task);
 		task.setUserId(loginUser.getUser().getUserId());

@@ -22,7 +22,7 @@ import com.example.service.user.UserRegisterService;
 @Controller
 @RequestMapping("/user-register")
 public class UserRegisterController {
-
+	
 	@ModelAttribute
 	public UserForm setUpForm() {
 		return new UserForm();
@@ -50,8 +50,16 @@ public class UserRegisterController {
 	@RequestMapping("/insert")
 	public String insert(@Validated UserForm form, BindingResult result) {
 
-		//■ 入力されたEmailがすでに存在していないか確認する。		
+		//■ 入力されたEmailがすでに存在している。 > エラー		
+		User existUser = userRegisterService.findByEmail(form.getEmail());
+		if(existUser!=null) {
+            result.rejectValue("email", null, "メールアドレスはすでに登録されています。");
+		}
 		
+		//■ パスワードが一致しない > エラー
+		if (form.getEmail().equals(form.getPasswordConfirmation())) {
+			result.rejectValue("password", null, "パスワードと確認用パスワードが一致していません。");
+		}
 		
 		if (result.hasErrors()) {
 			return toUserRegister();

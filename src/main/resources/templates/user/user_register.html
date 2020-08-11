@@ -20,6 +20,7 @@
 				<form th:action="@{/user-register/insert}" method="post" th:object="${userForm}">
 				
 					<p>名前</p>
+					<p style="color:gray">(1文字以上127文字以下)</p>
 					<div th:errors="*{name}" style="color:red"></div>
 					<input type="text" name="name" th:field="*{name}">
 					
@@ -28,6 +29,11 @@
 					<input type="text" name="email" th:field="*{email}">
 					
 					<p>パスワード</p>
+					<p style="color:gray">8文字以上32文字以下、以下を1種類以上使用</p>
+					<p style="color:gray">・半角英字(大文字)</p>
+					<p style="color:gray">・半角英字(小文字)、</p>
+					<p style="color:gray">・半角数字</p>
+					<p style="color:gray">※記号は使えません。</p>
 					<div th:errors="*{password}" style="color:red"></div>
 					<input type="password" name="password" th:field="*{password}">
 					

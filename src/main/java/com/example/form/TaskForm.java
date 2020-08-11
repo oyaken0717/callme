@@ -1,19 +1,17 @@
 package com.example.form;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 public class TaskForm {
 	
 	/** タスクid */
 	private String id;
 	/** タスク名 */
-	@NotNull(message = "タスク名を入力してください")
+	@NotBlank(message = "タスク名を入力してください")
 	private String name;
 	/** タスク内容 */
-	@NotNull(message = "タスク内容を入力してください")
 	private String content;
 	/** タスクを作ったユーザーのid */
-	@NotNull(message = "タスクを作ったユーザーのidを入力してください")
 	private String userId;
 	/** タスクが作られたグループのid */
 	private String groupId;

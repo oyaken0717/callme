@@ -18,10 +18,11 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">グループ登録</div>
-				<form th:action="@{/group-register/group-register}" method="post">
+				<form th:action="@{/group-register/group-register}" method="post" th:object="${groupForm}">
 				
 					<p>グループ名</p>
-					<input type="text" name="name">
+					<div th:errors="*{name}" style="color:red"></div>
+					<input type="text" name="name" th:field="*{name}">
 						
 					<div class="button">
 						<button class="login-button push-button" type="submit">登録</button>

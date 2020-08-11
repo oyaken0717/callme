@@ -17,10 +17,13 @@
 		<div class="form">
 			<div class="container">
 				<div class="form-title">タスク登録</div>
-				<form th:action="@{/task-register/task-register}" method="post">
-					<input type="hidden" name="groupId" th:value="${groupId}">                                                
+				<form th:action="@{/task-register/task-register}" method="post" th:object="${taskForm}">
+					<input type="hidden" name="groupId" th:value="${groupId}">
+					                                                
 					<p>タスク名：</p>
-					<input type="text" name="name">
+					<div th:errors="*{name}" style="color:red"></div>
+					<input type="text" name="name" th:field="*{name}">
+					
 					<p>内容：</p>
 					<textarea rows="15" cols="50" name="content"></textarea>
 						

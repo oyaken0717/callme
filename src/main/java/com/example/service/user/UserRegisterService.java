@@ -35,4 +35,16 @@ public class UserRegisterService {
 		user.setPassword(encodePassword);
 		userRepository.save(user);
 	}
+	
+	/**
+	 * 登録時に入力されたユーザーのメールアドレスがすでにDBに登録されていないか確認するメソッド.
+	 * 
+	 * @param email 登録時に入力されたユーザーのメールアドレス
+	 * @return ユーザーの情報 or null
+	 */
+	public User findByEmail(String email){
+		User user = userRepository.findByEmail(email);
+		return user;
+		
+	}
 }

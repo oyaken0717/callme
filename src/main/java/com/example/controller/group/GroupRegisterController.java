@@ -4,6 +4,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +26,11 @@ import com.example.service.group_relation.GroupRelationRegisterService;
 @Controller
 @RequestMapping("/group-register")
 public class GroupRegisterController {
+	
+	@ModelAttribute
+	public GroupForm setUpForm() {
+		return new GroupForm();
+	}
 	
 	@Autowired
 	private GroupRegisterService groupRegisterService;
@@ -46,8 +54,12 @@ public class GroupRegisterController {
 	 * @return グループ詳細画面
 	 */
 	@RequestMapping("/group-register")
-	public String groupRegister(GroupForm form, @AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
+	public String groupRegister(@Validated GroupForm form, BindingResult result, @AuthenticationPrincipal LoginUser loginUser,RedirectAttributes redirectAttributes) {
 
+        if (result.hasErrors()) {
+                return toGroupRegister();
+        }
+		
 		//■ グループの登録
 		Group group = new Group();
 		BeanUtils.copyProperties(form, group);

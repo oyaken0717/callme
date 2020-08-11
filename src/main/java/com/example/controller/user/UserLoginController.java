@@ -23,7 +23,7 @@ public class UserLoginController {
 	@RequestMapping("/to-login")
 	public String toLogin(Model model,@RequestParam(required = false) String error) {
 		if (error != null) {
-			model.addAttribute("errorMessage","エラーです。");
+			model.addAttribute("errorMessage","メールアドレス又はパスワードが間違っています。");
 		}
 		return "user/login";
 	}	
