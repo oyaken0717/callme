@@ -4,6 +4,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,16 +25,17 @@ import com.example.service.user.UserEditService;
 @RequestMapping("/user-edit")
 public class UserEditController {
 
+	@ModelAttribute
+	private UserEditForm setUpForm() {
+		return new UserEditForm();
+	}	
+	
 	@Autowired
 	private UserDetailService userDetailService;
 	
 	@Autowired
 	private UserEditService userEditService;
 	
-//	@ModelAttribute
-//	private UserEditForm setUpForm() {
-//		return new UserEditForm();
-//	}
 	
 	/**
 	 * ユーザー編集画面へ.
@@ -49,6 +53,7 @@ public class UserEditController {
 		userEditForm.setVersion(String.valueOf(user.getVersion()));
 		
 		model.addAttribute("userEditForm",userEditForm);
+		
 		return "user/user_edit";
 	}
 	
@@ -61,7 +66,12 @@ public class UserEditController {
 	 * @return ユーザー詳細画面/編集画面
 	 */
 	@RequestMapping("/user-edit")
-	public String userEdit(UserEditForm userEditForm,Model model,RedirectAttributes redirectAttributes) {
+	public String userEdit(@Validated UserEditForm userEditForm, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors()) {
+			return toUserEdit(userEditForm.getIntUserId(),model);
+		}		
+		
 		//■ パスワードのチェック	
 		
 		User lockUser = userDetailService.lockToLoad(userEditForm.getIntUserId());

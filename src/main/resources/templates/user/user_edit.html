@@ -19,17 +19,24 @@
 				<div class="form-title">編集</div>
 				<form th:action="@{/user-edit/user-edit}" method="post" th:object="${userEditForm}">
 				
-					<input type="hidden" name="name" th:field="*{userId}">
+					<input type="hidden" name="userId" th:field="*{userId}">
+					
 					<p>名前</p>
+					<div th:errors="*{name}" style="color:red"></div>
 					<input type="text" name="name" th:field="*{name}">
+					
 					<p>メールアドレス</p>
 					<input type="text" name="email" th:field="*{email}">
+					
 					<p>現在のパスワード</p>
 					<input type="password" name="password" th:field="*{password}">
+					
 					<p>新しいパスワード</p>
 					<input type="password" name="newPassword" th:field="*{newPassword}">
+					
 					<p>確認用パスワード</p>
 					<input type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
+					
 					<input type="hidden" name="version" th:field="*{version}">
 						
 					<div class="button">
