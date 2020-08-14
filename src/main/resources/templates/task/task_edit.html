@@ -24,6 +24,7 @@
 					<input type="hidden" name="groupId" th:field="*{groupId}">
 					
 					<p>タスク名：</p>
+					<div th:errors="*{name}" style="color:red"></div>
 					<input type="text" name="name" th:field="*{name}">
 					
 					<p>内容：</p>
