@@ -102,7 +102,6 @@ public class UserRepository {
 			sql.append(" users ");
 			sql.append("SET ");
 			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version + 1 ");
-//			sql.append(" user_id =:userId , name =:name , email =:email , password =:password, version =:version ");
 			sql.append("WHERE ");
 			sql.append(" user_id =:userId ");
 			sql.append("AND ");

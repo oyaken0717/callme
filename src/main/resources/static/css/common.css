@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+/* ■どの要素がはみ出ているか、視覚的に分かりやすくなります */
+/* * {
+  outline: 2px solid red;
+}
+ */
+
 .form {
 	/* https://ics.media/entry/17522/ */
 	display: flex;

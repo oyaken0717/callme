@@ -2,6 +2,7 @@ package com.example.controller.user;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,9 @@ public class UserEditController {
 	private UserEditForm setUpForm() {
 		return new UserEditForm();
 	}	
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserDetailService userDetailService;
@@ -68,27 +72,71 @@ public class UserEditController {
 	@RequestMapping("/user-edit")
 	public String userEdit(@Validated UserEditForm userEditForm, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
 		
-		if (result.hasErrors()) {
-			return toUserEdit(userEditForm.getIntUserId(),model);
-		}		
-		
-		//■ パスワードのチェック	
-		
+		//■ 最新のUser情報
 		User lockUser = userDetailService.lockToLoad(userEditForm.getIntUserId());
+		
+//■ 3つのパスワードのどれかが入力されていたら(空白でなければ)、チェックが動く > メソッドで切り分けたい。resultにrejectを格納して返す感じ。
+		if (
+			!"".equals(userEditForm.getPassword()) ||
+			!"".equals(userEditForm.getNewPassword()) ||
+			!"".equals(userEditForm.getPasswordConfirmation())
+			) {		
+			
+			//■ 1.現在のパスワードが入力されているか？
+			if ("".equals(userEditForm.getPassword())) {
+				result.rejectValue("password", null, "現在のパスワードが間違っています。");
+			}		
+
+			//■ 2.新しいパスワードが入力されているか？
+			if ("".equals(userEditForm.getNewPassword())) {
+				result.rejectValue("newPassword", null, "新しいパスワードが間違っています。");
+			}		
+			
+			//■ 3.確認用パスワードが入力されているか？
+			if ("".equals(userEditForm.getPasswordConfirmation())) {
+				result.rejectValue("passwordConfirmation", null, "確認用パスワードが間違っています。");
+			}		
+	
+			//■ 現在のパスワードのチェック
+			if(!passwordEncoder.matches(userEditForm.getPassword(), lockUser.getPassword())) {
+				result.rejectValue("password", null, "パスワードが間違っています。");
+			}
+	
+			//■ 新しいパスワードのチェック 正規表現
+			String str = userEditForm.getNewPassword();
+	        if (!str.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z0-9]{8,100}$")) {
+	        	result.rejectValue("newPassword", null, "8文字以上32文字以下、半角英字(大文字)、半角英字(小文字)、半角数字をそれぞれ1種類以上使ってください。");
+			}
+			
+	        //■ 新しいパスワードと確認用パスワードが同じかチェック
+	        if (!userEditForm.getNewPassword().equals(userEditForm.getPasswordConfirmation())) {
+	        	result.rejectValue("newPassword", null, "新しいパスワードと確認用パスワードが合っていません。");
+			}
+	        
+			//■ 現在(昔)のパスワードと新しい(今)パスワードが同じであればエラー
+	        if (userEditForm.getPassword().equals(userEditForm.getNewPassword())) {	
+	        	result.rejectValue("password", null, "現在のパスワードと新しいパスワードは別にしてください。");
+	        }
+			
+	    //■ 最初の「3つのパスワードのどれかが入力されていたら(空白でなければ)」のifの終わり
+		}	
 		
 		//■ 楽観処理 ①編集画面の時のversionと②新しく取得したversionが合っているか確認する。
 		if (userEditForm.getIntVersion() != lockUser.getVersion()) {
-			model.addAttribute("userId", userEditForm.getIntUserId());
-			return toUserEdit(userEditForm.getIntUserId(),model);
+			result.rejectValue("version", null, "編集中にデータが更新されました。編集内容を確認してください。");			
 		}
+
+		if (result.hasErrors()) {
+			return "user/user_edit";
+		}		
 		
+//■ パスワードのハッシュ化
+//■ 正常処理		
 		String password = lockUser.getPassword();
 		
 		BeanUtils.copyProperties(userEditForm,lockUser);
 		lockUser.setUserId(userEditForm.getIntUserId());
 		lockUser.setPassword(password);
-//		lockUser.setVersion(userEditForm.getIntVersion()+1);
-//		lockUser.setVersion(userEditForm.getIntVersion());
 
 		try {
 			userEditService.save(lockUser);			
@@ -100,31 +148,5 @@ public class UserEditController {
 		redirectAttributes.addAttribute("userId",userEditForm.getIntUserId());
 		return "redirect:/user-detail/to-user-detail";
 	}
-	
-//	@RequestMapping("/user-edit")
-//	public String userEdit(UserEditForm userEditForm,Model model,RedirectAttributes redirectAttributes) {
-//		//■ パスワードのチェック	
-//		
-//		User lockUser = userDetailService.lockToLoad(userEditForm.getIntUserId());
-//		
-//		//■ 楽観処理 ①編集画面の時のversionと②新しく取得したversionが合っているか確認する。
-//		if (userEditForm.getIntVersion() != lockUser.getVersion()) {
-//			model.addAttribute("userId", userEditForm.getIntUserId());
-//			return toUserEdit(userEditForm.getIntUserId(),model);
-//		}
-//		
-//		String password = lockUser.getPassword();
-//		
-//		BeanUtils.copyProperties(userEditForm,lockUser);
-//		lockUser.setUserId(userEditForm.getIntUserId());
-//		lockUser.setPassword(password);
-//		//■ 本当はSQLで version + 1 をしたいが返り値の問題でここで+1する。		
-//		lockUser.setVersion(userEditForm.getIntVersion()+1);
-//		
-//		userEditService.save(lockUser);
-//		
-//		redirectAttributes.addAttribute("userId",userEditForm.getIntUserId());
-//		return "redirect:/user-detail/to-user-detail";
-//	}
-	
+		
 }
