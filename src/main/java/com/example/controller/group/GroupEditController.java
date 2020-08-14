@@ -1,11 +1,14 @@
 package com.example.controller.group;
 
-import java.text.Normalizer.Form;
+import java.sql.ResultSet;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +27,11 @@ import com.example.service.group.GroupEditService;
 @RequestMapping("/group-edit")
 public class GroupEditController {
 	
+	@ModelAttribute
+	private GroupForm setUpForm() {
+		return new GroupForm();
+	}	
+	
 	@Autowired
 	private GroupDetailService groupDetailService;
 	
@@ -31,9 +39,9 @@ public class GroupEditController {
 	private GroupEditService groupEditService;
 	
 	/**
-	 * グループ登録画面へ.
+	 * グループ編集画面へ.
 	 * 
-	 * @return グループ登録画面
+	 * @return グループ編集画面
 	 */
 	@RequestMapping("/to-group-edit")
 	public String toGroupEdit(Integer id,Model model) {
@@ -52,7 +60,11 @@ public class GroupEditController {
 	 * @return グループ詳細画面
 	 */
 	@RequestMapping("/group-edit")
-	public String groupEdit(GroupForm groupForm,RedirectAttributes redirectAttributes) {
+	public String groupEdit(@Validated GroupForm groupForm, BindingResult result,RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors()) {
+			return "group/group_edit";
+		}		
 		
 		Group group = groupDetailService.load(groupForm.getIntId());
 		

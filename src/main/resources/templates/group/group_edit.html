@@ -24,6 +24,7 @@
 					<input type="hidden" name="ownerId" th:field="*{ownerId}">
 				
 					<p>グループ名</p>
+					<div th:errors="*{name}" style="color:red"></div>
 					<input type="text" name="name" th:field="*{name}">
 						
 					<div class="button">
