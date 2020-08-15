@@ -27,7 +27,7 @@ public class TaskDetailController {
 	 * @return タスク詳細画面
 	 */
 	@RequestMapping("/to-task-detail")
-	public String toTaskDetail(Integer id,Model model) {
+	public String toTaskDetail(Integer id, Model model) {
 		Task task = taskDetailService.load(id);
 		model.addAttribute("task",task);
 		return "task/task_detail";

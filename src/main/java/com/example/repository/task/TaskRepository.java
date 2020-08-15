@@ -130,5 +130,25 @@ public class TaskRepository {
 		
 		return taskList;
 	}
+	
+	/**
+	 * タスクのidを使って削除する.
+	 * 
+	 * @param id タスクのid
+	 */
+	public void deleteByTaskId(Integer id) {
+		
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("DELETE ");
+		sql.append("FROM ");
+		sql.append(" tasks ");
+		sql.append("WHERE ");
+		sql.append(" id = :id ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql.toString(),param);
+		
+	}
 
 }
