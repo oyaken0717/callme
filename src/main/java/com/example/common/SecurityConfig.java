@@ -38,13 +38,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/**").permitAll().antMatchers("/user/**").hasRole("USER").anyRequest()
 				.authenticated();
 
-		http.formLogin().loginPage("/user-login/to-login").loginProcessingUrl("/login")
-				.failureUrl("/user-login/to-login/?error=true")
-				.defaultSuccessUrl("/group-join-list/to-group-join-list", false).usernameParameter("email")
-				.passwordParameter("password");
+		http.formLogin()
+			.loginPage("/user-login/to-login")
+			.loginProcessingUrl("/login")
+			.failureUrl("/user-login/to-login/?error=true")
+			.defaultSuccessUrl("/group-join-list/to-group-join-list", false)
+			.usernameParameter("email")
+			.passwordParameter("password");
 
-		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
-				.deleteCookies("JSESSIONID").invalidateHttpSession(true);
+		http.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/user-login/to-login")
+			.deleteCookies("JSESSIONID").invalidateHttpSession(true);
 	}
 
 	@Override

@@ -1,50 +1,88 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>callme</title>
-	<link rel= "stylesheet" th:href ="@{/css/header.css}">
-	<link rel= "stylesheet" th:href ="@{/css/common.css}">
-	<link rel= "stylesheet" th:href ="@{/css/group_join_list.css}">	
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--■ ①必要に応じてコンポーネントのメモリを増強し、処理能力をあげる -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+
+<title>callme</title>
+
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	rel="stylesheet">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<!--■ ヘッダー部分 -->
+	<!--■ ヘッダー部分 -->
 	<span th:include="/common/fragment-part::frag_header_login"></span>
 
-<!--■ メイン部分 -->	
+	<!--■ メイン部分 -->
 	<div class="main">
-		<div class="form">
-			<div class="container">
-			
-				<div class="flex-list">
-					<div><a th:href="@{/group-register/to-group-register}" class="login-button push-button">グループ作成</a></div>				
-					<div><a th:href="@{/invite_list/to_invite_list}" class="login-button push-button">招待されているグループ</a></div>														
+		<div class="container text-center">
+
+
+			<h3 class="my-5">グループ</h3>
+
+			<div class="row justify-content-center mb-4">
+
+				<div>
+					<a th:href="@{/group-register/to-group-register}" class="btn mr-3"
+						style="background-color: #D9E3FF;"> グループ作成 </a>
 				</div>
-				<div class="form-title">参加グループ</div>
-				
-					<div th:each="group:${ownerGroupList}">
-						<div><a th:href="@{/group-detail/to-group-detail(id=${group.id})}"th:text="${group.name}">グループ1</a></div>
-					</div>
-					
-					<hr>
-					
-					<form th:action="@{/group-join-list/to-group-join-list}" method="post" th:object="${page}">
-						<input type="text" name="nowPage" th:field="*{nowPage}"><span>ページ</span>
-						<button class="login-button push-button" type="submit">Go</button>
-					</form>
-					<div th:each="group:${groupList}">
-						<div><a th:href="@{/group-detail/to-group-detail(id=${group.id})}"th:text="${group.name}">グループ1</a></div>
-					</div>
-						
+				<div>
+					<a th:href="@{/invite_list/to_invite_list}" class="btn"
+						style="background-color: #D9E3FF;"> 招待されているグループ </a>
+				</div>
+
 			</div>
-		</div>	
+
+			<!-- 					<div th:each="group:${ownerGroupList}">
+						<div><a th:href="@{/group-detail/to-group-detail(id=${group.id})}"th:text="${group.name}">グループ1</a></div>
+					</div>
+					<hr> -->
+
+			<form th:action="@{/group-join-list/to-group-join-list}"
+				method="post" th:object="${page}" class="mb-5">
+				<input type="text" name="nowPage" th:field="*{nowPage}"><span>ページ</span>
+				<button class="btn btn-sm" style="background-color: #D9E3FF;" type="submit">Go</button>
+			</form>
+
+<div class="row">
+<div class="mx-auto">		
+
+			<table class="table table-hover" style="width: 30rem;">
+				<tbody>
+					<tr th:each="group:${groupList}">
+						<td>
+							<a th:href="@{/group-detail/to-group-detail(id=${group.id})}" th:text="${group.name}">グループ1</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+</div>
+</div>
+		</div>
 	</div>
 
 
-	<script th:src="@{/js/common.js}"></script>
-	<script th:src="@{/js/header.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
 

@@ -2,56 +2,75 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--■ ①必要に応じてコンポーネントのメモリを増強し、処理能力をあげる -->
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	
 	<title>callme</title>
-	<link rel= "stylesheet" th:href ="@{/css/header.css}">
-	<link rel= "stylesheet" th:href ="@{/css/common.css}">
-	<link rel= "stylesheet" th:href ="@{/css/login.css}">
+
+
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 	
 <!--■ ヘッダー部分 -->
-	<span th:include="/common/fragment-part::frag_header_logout"></span>
+	<span th:include="/common/fragment-part::frag_header_logout_register"></span>
 <!--■ メイン部分 -->	
 	<div class="main">
-		<div class="form">
-			<div class="container">
-				<div class="form-title">登録</div>
-				<form th:action="@{/user-register/insert}" method="post" th:object="${userForm}">
+			<div class="container text-center">
+			
+				<h3 class="my-5">登録</h3>
 				
-					<p>名前</p>
+<div class="row">
+<div class="mx-auto">		
+<div class="card" style="width: 30rem;">
+<div class="card-block">
+				
+				<form class="py-4" th:action="@{/user-register/insert}" method="post" th:object="${userForm}">
+				
+					<p><i class="fas fa-user fa-fw fa-2x"></i>名前</p>
 					<p style="color:gray">(1文字以上127文字以下)</p>
 					<div th:errors="*{name}" style="color:red"></div>
-					<input type="text" name="name" th:field="*{name}">
+					<input class="mb-4" type="text" name="name" th:field="*{name}">
 					
-					<p>メールアドレス</p>
+					<p><i class="fas fa-envelope fa-fw fa-2x"></i>メールアドレス</p>
 					<div th:errors="*{email}" style="color:red"></div>
-					<input type="text" name="email" th:field="*{email}">
+					<input class="mb-4" type="text" name="email" th:field="*{email}">
 					
-					<p>パスワード</p>
+					<p><i class="fas fa-unlock-alt fa-fw fa-2x"></i>パスワード</p>
 					<p style="color:gray">8文字以上32文字以下、以下を1文字以上使用</p>
 					<p style="color:gray">・半角英字(大文字)</p>
 					<p style="color:gray">・半角英字(小文字)、</p>
 					<p style="color:gray">・半角数字</p>
 					<p style="color:gray">※記号は使えません。</p>
 					<div th:errors="*{password}" style="color:red"></div>
-					<input type="password" name="password" th:field="*{password}">
+					<input class="mb-4" type="password" name="password" th:field="*{password}">
 					
-					<p>確認用パスワード</p>
+					<p><i class="fas fa-unlock fa-fw fa-2x"></i>確認用パスワード</p>
 					<div th:errors="*{passwordConfirmation}" style="color:red"></div>
-					<input type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
+					<input class="mb-4" type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
 						
 					<div class="button">
-						<button class="login-button push-button" type="submit">登録</button>
-						<a th:href="@{/user-login/to-login}" class="register-button push-button">ログイン</a>
+						<button class="btn mr-4" type="submit" style="background-color:#D9E3FF;">登録</button>
+						<a th:href="@{/user-login/to-login}" class="btn" style="background-color:#D9E3FF;">ログイン</a>
 					</div>
 					
 				</form>
+</div>
+</div>
+</div>
+</div>
+				
+				
 			</div>
-		</div>	
 	</div>
 	
-	<script th:src="@{/js/common.js}"></script>	
+	<!--■ ③jQueryとPopper.jsとBootstrapを持ってくる。 Popperとは、クリックするとメッセージが出るライブラリ-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	
 </body>
 </html>
 
