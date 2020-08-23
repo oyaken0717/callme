@@ -2,9 +2,11 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
 	<title>callme</title>
-	<link rel= "stylesheet" th:href ="@{/css/header.css}">
-	<link rel= "stylesheet" th:href ="@{/css/common.css}">
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -14,34 +16,54 @@
 
 <!--■ メイン部分 -->	
 	<div class="main">
-		<div class="form">
-			<div class="container">
-				<div class="form-title">タスク編集</div>
+			<div class="container text-center">
+				<h3 class="my-5">タスク編集</h3>
 				<form th:action="@{/task-edit/task-edit}" th:method="post" th:object="${taskForm}">
 				
 					<input type="hidden" name="id" th:field="*{id}">
 					<input type="hidden" name="userId" th:field="*{userId}">
 					<input type="hidden" name="groupId" th:field="*{groupId}">
 					
-					<p>タスク名：</p>
-					<div th:errors="*{name}" style="color:red"></div>
-					<input type="text" name="name" th:field="*{name}">
+					<div class="mb-4">
+						<p>タスク名：</p>
+						<div th:errors="*{name}" style="color:red"></div>
+						<input type="text" name="name" th:field="*{name}">
+					</div>
 					
-					<p>内容：</p>
-					<textarea rows="15" cols="50" th:field="*{content}"></textarea>
-						
+					<div class="mb-3">
+							<span>内容：</span>
+							<span class="btn" style="border-radius: 50%; background-color: #D9E3FF;">
+								<i id="voice" class="fas fa-microphone fa-lg"></i>
+							</span>
+					</div>
+							
+					<div class="mb-4">
+						<textarea id="content" rows="15" cols="50" th:field="*{content}"></textarea>
+					</div>
+							
 					<div class="button">
-						<button class="login-button push-button" type="submit">更新</button>
-						<div><a th:href="@{ /task-delete/task-delete ( groupId=*{groupId}, taskId=*{id} ) }" class="login-button push-button">削除</a></div>
+						<button class="btn mr-2" type="submit" style="background-color: #D9E3FF;">更新</button>
+						<a th:href="@{ /task-delete/task-delete ( groupId=*{groupId}, taskId=*{id} ) }" class="btn" style="background-color: #D9E3FF;">削除</a>
 					</div>
 				</form>
 			</div>
-		</div>	
 	</div>
 
 
-	<script th:src="@{/js/common.js}"></script>
-	<script th:src="@{/js/header.js}"></script>
+<script th:src="@{/js/task_voice_register.js}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
 
