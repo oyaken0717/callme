@@ -2,9 +2,12 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
 	<title>callme</title>
-	<link rel= "stylesheet" th:href ="@{/css/header.css}">
-	<link rel= "stylesheet" th:href ="@{/css/common.css}">
+
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -14,10 +17,15 @@
 
 <!--■ メイン部分 -->	
 	<div class="main">
-		<div class="form">
-			<div class="container">
-				<div class="form-title">編集</div>
-				<form th:action="@{/user-edit/user-edit}" method="post" th:object="${userEditForm}">
+			<div class="container text-center">
+				<h3 class="my-5">編集</h3>
+				
+<div class="row">
+<div class="mx-auto">		
+<div class="card" style="width: 30rem;">
+<div class="card-block">
+				
+				<form class="py-4" th:action="@{/user-edit/user-edit}" method="post" th:object="${userEditForm}">
 				
 					<input type="hidden" name="userId" th:field="*{userId}">
 					
@@ -25,35 +33,52 @@
 					
 					<p>名前</p>
 					<div th:errors="*{name}" style="color:red"></div>
-					<input type="text" name="name" th:field="*{name}">
+					<input class="mb-4" type="text" name="name" th:field="*{name}">
 					
 					<p>メールアドレス</p>
 					<div th:errors="*{email}" style="color:red"></div>
-					<input type="text" name="email" th:field="*{email}">
+					<input class="mb-4" type="text" name="email" th:field="*{email}">
+					
+					<hr style="width: 25rem;">
 					
 					<p>現在のパスワード</p>
 					<div th:errors="*{password}" style="color:red"></div>
-					<input type="password" name="password" th:field="*{password}">
+					<input class="mb-4" type="password" name="password" th:field="*{password}">
 					
 					<p>新しいパスワード</p>
 					<div th:errors="*{newPassword}" style="color:red"></div>
-					<input type="password" name="newPassword" th:field="*{newPassword}">
+					<input class="mb-4" type="password" name="newPassword" th:field="*{newPassword}">
 					
 					<p>確認用パスワード</p>
 					<div th:errors="*{passwordConfirmation}" style="color:red"></div>
-					<input type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
+					<input class="mb-4" type="password" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br>
 					
 					<input type="hidden" name="version" th:field="*{version}">
 						
-					<div class="button">
-						<button class="login-button push-button" type="submit">更新</button>
+					<div>
+						<button class="btn" type="submit" style="background-color:#D9E3FF;">更新</button>
 					</div>
 				</form>
+
+</div>
+</div>
+</div>
+</div>
+				
 			</div>
-		</div>	
 	</div>
 
-	<script th:src="@{/js/common.js}"></script>
-	<script th:src="@{/js/header.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>
