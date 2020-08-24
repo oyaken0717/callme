@@ -2,10 +2,11 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
 	<title>callme</title>
-	<link rel= "stylesheet" th:href ="@{/css/header.css}">
-	<link rel= "stylesheet" th:href ="@{/css/common.css}">
-	<link rel= "stylesheet" th:href ="@{/css/group_detail.css}">	
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -15,26 +16,28 @@
 
 <!--■ メイン部分 -->	
 	<div class="main">
-		<div class="form">
-			<div class="container">
+			<div class="container text-center">
 				
-					<p class="group-name">ユーザー：<span th:text="${user.name}"></span></p>
+					<h3 class="my-5" th:text="${user.name}"></h3>
 						
-					<div class="button">
-						<a class="login-button push-button" th:href="@{/user-edit/to-user-edit(userId=${user.userId})}">編集</a>
-						<a class="back-button push-button" th:href="@{/user-detail/to-user-detail}">戻る</a>
-					</div>
-					<div class="button">
-						<a class="login-button push-button" th:href="@{/user-delete/user-delete}">アカウントの削除</a>
-					</div>
+						<a class="btn mr-2" th:href="@{/user-edit/to-user-edit ( userId=${user.userId} ) }" style="background-color: #D9E3FF;">編集</a>
+						<a class="btn" th:href="@{/user-delete/user-delete}" style="background-color: #D9E3FF;">アカウントの削除</a>
 
 			</div>
-		</div>	
 	</div>
 
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
 
-	<script th:src="@{/js/common.js}"></script>
-	<script th:src="@{/js/header.js}"></script>
 </body>
 </html>
 
