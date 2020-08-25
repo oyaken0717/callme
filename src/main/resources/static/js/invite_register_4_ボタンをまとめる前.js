@@ -35,14 +35,17 @@ console.log(name);
 
 			function setTemplate(user) {
 				var template = 
-					`<tr>
-						<td class=\"addUser \">
-							<input class=\"childAddUser  \" type=\"hidden\" value=\"${user.userId}\">
+					`<tr class=\"row\">
+						<td class=\"addUser col-9 \">
+							<input class=\"childAddUser\" type=\"hidden\" value=\"${user.userId}\">
 								${user.name}
-								<span class=\"btn btn-primary btn-sm float-right\">
-									招待
-								</span>
 							</input>
+						</td>
+						
+						<td class=\"col-3  \">
+							<div class=\"childAddUser btn btn-primary btn-sm \">
+								招待
+							</div>
 						</td>
 					</tr>`
 				;
@@ -86,23 +89,10 @@ console.log(name);
 //■ ユーザー候補一覧から招待候補を確定する。
 //	$().on();では後から追加されたHTMLについてはクリックイベントが発動しない
     $(document).on("click", ".addUser", function() {	
-    	var userId = $(this).find(".childAddUser").val();
     	var userName = $(this).text();
+    	var userId = $(this).find(".childAddUser").val();
     	
-    	userName = userName.replace("招待","") ;
-    	
-    	$(".invite-list").append(
-    			"<tr>" +
-	    			"<td class=\"candidateUser mt-4\">" +
-		    			"<input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"
-		    				+userName+
-							"<span class=\"btn btn-primary btn-sm float-right\">" +
-								"<i class=\"fas fa-times\"></i>" +
-							"</span>" + 
-							
-		    			"</input>" +
-	    			"</td>" +
-    			"</tr>");    	
+    	$(".invite-list").append("<tr><td class=\"candidateUser mt-4\"><input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"+userName+"</input></td></tr>");    	
     	$(this).remove();
     });
 

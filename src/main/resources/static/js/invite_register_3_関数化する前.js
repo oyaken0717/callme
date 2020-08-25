@@ -33,22 +33,24 @@ console.log(name);
 			var inviteUsers = [];
 			var inviteUsers = $(".inviteUser");
 
-			function setTemplate(user) {
-				var template = 
-					`<tr>
-						<td class=\"addUser \">
-							<input class=\"childAddUser  \" type=\"hidden\" value=\"${user.userId}\">
-								${user.name}
-								<span class=\"btn btn-primary btn-sm float-right\">
-									招待
-								</span>
-							</input>
-						</td>
-					</tr>`
-				;
-				return template;	
-			};
+			var template = 
+				"<tr class=\"row\">" +
 				
+					"<td class=\"addUser col-9 \">" +
+						"<input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">"
+							+ user.name +
+						"</input>" +
+					"</td>" +
+						
+					"<td class=\"col-3  \">" +
+						"<div class=\"childAddUser btn btn-primary btn-sm \">"
+							+ "招待" +
+						"</div>" +
+					"</td>" +
+				
+				"</tr>"
+			;
+			
 			//■ 「招待するユーザー」と「検索結果のユーザー」が重複しないようにする。
 			if (inviteUsers.length >= 1) {
 //				https://www.it-swarm.dev/ja/javascript/2%E3%81%A4%E3%81%AEjavascript%E9%85%8D%E5%88%97%E3%82%92%E6%AF%94%E8%BC%83%E3%81%97%E3%81%A6%E9%87%8D%E8%A4%87%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/1071091800/
@@ -59,8 +61,7 @@ console.log(name);
                 })
 
 				//■ 検索にマッチしたユーザーを表示する。
-				$.each(data, function(index,user) {
-					var template = setTemplate(user);
+				$.each(data, function(index,user) {	
 					if (!added_user_ids[user.userId]) {
 						$("#addSearchUser").append(template);				
 					}
@@ -70,8 +71,26 @@ console.log(name);
 			} else {					
 				//■ 検索にマッチしたユーザーを表示する。
 				$.each(data, function(index,user) {				
-					var template = setTemplate(user);
-					$("#addSearchUser").append(template);
+					
+					$("#addSearchUser").append(template
+//							"<tr class=\"row\">" +
+//							
+//								"<td class=\"addUser col-9 \">" +
+//									"<input class=\"childAddUser\" type=\"hidden\" value="+user.userId+">"
+//										+ user.name +
+//									"</input>" +
+//								"</td>" +
+//
+//								"<td class=\"col-3 \">" +
+//									"<div class=\" childAddUser btn btn-primary btn-sm \">"
+//										+ "招待" +
+//									"</div>" +
+//								"</td>" +
+//								
+//							"</tr>"
+					);				
+
+					
 				});				
 			}
 //■ failーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー			
@@ -86,23 +105,10 @@ console.log(name);
 //■ ユーザー候補一覧から招待候補を確定する。
 //	$().on();では後から追加されたHTMLについてはクリックイベントが発動しない
     $(document).on("click", ".addUser", function() {	
-    	var userId = $(this).find(".childAddUser").val();
     	var userName = $(this).text();
+    	var userId = $(this).find(".childAddUser").val();
     	
-    	userName = userName.replace("招待","") ;
-    	
-    	$(".invite-list").append(
-    			"<tr>" +
-	    			"<td class=\"candidateUser mt-4\">" +
-		    			"<input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"
-		    				+userName+
-							"<span class=\"btn btn-primary btn-sm float-right\">" +
-								"<i class=\"fas fa-times\"></i>" +
-							"</span>" + 
-							
-		    			"</input>" +
-	    			"</td>" +
-    			"</tr>");    	
+    	$(".invite-list").append("<tr><td class=\"candidateUser mt-4\"><input type=\"hidden\" class=\"inviteUser\" name=\"userList\" value="+userId+">"+userName+"</input></td></tr>");    	
     	$(this).remove();
     });
 
