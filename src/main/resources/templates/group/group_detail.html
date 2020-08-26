@@ -32,9 +32,9 @@
 					</div>
 					
 					<div class="mb-4">
+						<a class="btn mr-2" th:href="@{/task-register/to-task-register(groupId=${group.id})}" style="background-color: #D9E3FF;">タスクの登録</a>										
 						<a class="btn mr-2" th:href="@{/user-group-join-list/to-user-group-list(groupId=${group.id})}" style="background-color: #D9E3FF;">参加ユーザー</a>					
-						<a class="btn mr-2" th:href="@{/invite_register/to_invite_register(groupId=${group.id})}" style="background-color: #D9E3FF;">グループに招待する</a>
-						<a class="btn" th:href="@{/task-register/to-task-register(groupId=${group.id})}" style="background-color: #D9E3FF;">タスクの登録</a>										
+						<a class="btn" th:href="@{/invite_register/to_invite_register(groupId=${group.id})}" style="background-color: #D9E3FF;">グループに招待する</a>
 					</div>
 					
 

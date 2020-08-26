@@ -18,19 +18,21 @@
 <!--■ メイン部分 -->	
 	<div class="main">
 			<div class="container text-center">
-				<h3 class="my-5">グループ編集</h3>
+				<h3 class="mt-5 mb-4">グループ編集</h3>
 				<form th:action="@{/group-edit/group-edit}" method="post" th:object="${groupForm}">
 
 					<input type="hidden" name="id" th:field="*{id}">
 					<input type="hidden" name="ownerId" th:field="*{ownerId}">
 				
+					<button class="btn mb-4 mr-2" type="submit" style="background-color: #D9E3FF;">更新</button>
+					<a class="btn mb-4" th:href="@{ /group-delete/group-delete (groupId=*{id}) }" style="background-color: #D9E3FF;">削除</a>
+
 					<div class="mb-3">
 						<p>グループ名:</p>
 						<div th:errors="*{name}" style="color:red"></div>
 						<input type="text" name="name" th:field="*{name}">
 					</div>	
 						
-					<button class="btn mr-2" type="submit" style="background-color: #D9E3FF;">更新</button>
 										
 				</form>
 			</div>

@@ -29,8 +29,6 @@ public class GroupDetailController {
 	 */
 	@RequestMapping("/to-group-detail")
 	public String toGroupDetail(Integer id, Model model) {
-System.out.println("きてる");
-System.out.println("id:"+id);
 		Group group = groupDetailService.load(id);
 		model.addAttribute("group",group);
 		return "group/group_detail";

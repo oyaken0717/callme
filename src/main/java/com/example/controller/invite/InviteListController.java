@@ -33,8 +33,7 @@ public class InviteListController {
 	 */
 	@RequestMapping("/to_invite_list")
 	public String toInviteList(@AuthenticationPrincipal LoginUser loginUser,Model model) {
-		//■ 「0」はstatus。「招待中」を表す。
-		List<Group> groupList = groupRelationListService.findBySatus(0, loginUser.getUser().getUserId());
+		List<Group> groupList = groupRelationListService.findBySatus(0, loginUser.getUser().getUserId());//■ 「0」はstatus。「招待中」を表す。
 		model.addAttribute("groupList",groupList);
 		return "group_relation/invite_list";
 	}

@@ -42,11 +42,12 @@ public class InviteGroupAnswerController {
 		
 		groupRelationAnswerService.save(groupRelation);
 		
-		redirectAttributes.addAttribute("id",groupRelation.getId());
 		
-		if (status == 9) { //■ 「status:9 不参加」
-			return "redirect:/group-detail/to-group-detail";			
+		if (status == 9) { //■ 「status:9 不参加」であれば招待されているグループリストに戻る
+			return "redirect:/invite_list/to_invite_list";		
 		}
+		
+		redirectAttributes.addAttribute("id",groupRelation.getGroupId()); //■ グループ詳細画面へ
 		return "redirect:/group-detail/to-group-detail";			
 	}
 }

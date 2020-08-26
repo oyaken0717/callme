@@ -253,4 +253,22 @@ public class GroupRepository {
 		List<Group> groupList = template.query(sql.toString(), param, GROUP_RESULT_SET_EXTRACTOR);
 		return groupList;
 	}
+	
+	/**
+	 * グループ情報を削除する.
+	 * 
+	 * @param userId グループid
+	 */
+	public void delete(Integer groupId) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("DELETE ");
+		sql.append("FROM ");
+		sql.append(" groups ");
+		sql.append("WHERE ");
+		sql.append(" id  =:groupId ");
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId", groupId);
+		template.update(sql.toString(),param);		
+	}
 }
