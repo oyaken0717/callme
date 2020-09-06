@@ -304,12 +304,25 @@ public class UserRepository {
 	public void delete(Integer userId) {
 		StringBuilder sql = new StringBuilder();
 
+//		sql.append("DELETE ");
+//		sql.append("FROM ");
+//		sql.append(" users ");
+//		sql.append("WHERE ");
+//		sql.append(" user_id  =:userId ");
+
+		sql.append("WITH ");
+		sql.append(" deleted ");
+		sql.append("AS ");
+		sql.append(" ( DELETE FROM users WHERE user_id =:userId RETURNING user_id ) ");
+		sql.append(" ");
 		sql.append("DELETE ");
 		sql.append("FROM ");
-		sql.append(" users ");
+		sql.append(" group_relations ");
 		sql.append("WHERE ");
-		sql.append(" user_id  =:userId ");
-
+		sql.append(" user_id ");
+		sql.append("IN ");
+		sql.append(" ( SELECT user_id FROM deleted ) ");		
+		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		template.update(sql.toString(),param);		
 	}

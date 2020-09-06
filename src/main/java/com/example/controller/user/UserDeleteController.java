@@ -30,7 +30,7 @@ public class UserDeleteController {
 	@RequestMapping("/user-delete")
 	public String delete(@AuthenticationPrincipal LoginUser loginUser) {
 		userDeleteService.delete(loginUser.getUser().getUserId());
-		return "user/user_detail";
+		return "redirect:/user-login/to-login";
 	}
 
 }
