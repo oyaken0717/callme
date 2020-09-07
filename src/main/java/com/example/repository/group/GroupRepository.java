@@ -262,12 +262,21 @@ public class GroupRepository {
 	public void delete(Integer groupId) {
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("DELETE ");
-		sql.append("FROM ");
-		sql.append(" groups ");
-		sql.append("WHERE ");
-		sql.append(" id  =:groupId ");
+//		sql.append("DELETE ");
+//		sql.append("FROM ");
+//		sql.append(" groups ");
+//		sql.append("WHERE ");
+//		sql.append(" id  =:groupId ");
 
+		sql.append("WITH ");
+		sql.append(" deleted ");
+		sql.append("AS ");
+		sql.append(" ( DELETE FROM groups WHERE id =:groupId RETURNING id ), ");
+		sql.append("deleted2 ");
+		sql.append("AS ");
+		sql.append(" ( DELETE FROM group_relations WHERE group_id IN ( SELECT id FROM deleted ) ) ");
+		sql.append("DELETE FROM tasks WHERE group_id IN ( SELECT id FROM deleted ) ");
+		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("groupId", groupId);
 		template.update(sql.toString(),param);		
 	}
